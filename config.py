@@ -7,6 +7,7 @@ sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
 PATH = os.path.dirname(os.path.abspath(__file__))
 ROOT_USERNAME = 'root'
 ROOT_PASSWORD = 'Arse@1990'
+PHONE_MELIPAYAMAK = '50004001008175'
 Avalai_API = "aa-4xhO0hL9vzi7m8fCOLZqY5G02fcsfCyWL2jbmC9nzUlJkprC"
 Talkbot_API = "sk-69a9bec33dedd7311f91cb78d60d849c"
 #IoType_API = "eKM0yz0On7nJkTrWhhmXxiAjYGi14Kty"

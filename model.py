@@ -1,7 +1,8 @@
 import re
-
+from datetime import datetime
 from peewee import MySQLDatabase, Model, CharField, IntegerField, Insert
 from playhouse.db_url import connect
+
 
 database = connect('mysql://voip:1234@127.0.0.1:3306/voip')
 
@@ -34,3 +35,15 @@ def validate_phone(value):
     else:
         # شماره نامعتبر است
         return False
+
+class CachedValue:
+    def __init__(self):
+        self.cached_value = None
+
+    def get_value(self):
+        if self.cached_value is None:  # مقداردهی تنها در بار اول
+            self.cached_value = datetime.now()
+        return self.cached_value
+
+    def reset_value(self):  # بازنشانی مقدار
+        self.cached_value = datetime.now()

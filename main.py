@@ -8,10 +8,13 @@ from src.audio import record_audio
 from src.openai_module import AvalAiApi, prompt
 #from src.talk_bot import TalkBot
 #from src.asure import AzureTTS
-
+from functions import send_message, get_reports, get_messages
 
 async def main():
     logger.info("App Started")
+    phone = "09157773007"
+    xxx = await get_reports(phone)
+    print(xxx)
 
 
 async def start_call():
@@ -67,3 +70,4 @@ def number_to_persian_words(number):
 
 if __name__ == "__main__":
     asyncio.run(main())
+
