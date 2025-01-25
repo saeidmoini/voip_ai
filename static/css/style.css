@@ -1,0 +1,133 @@
+/* استایل کلی برای body */
+body {
+    font-family: Arial, sans-serif;
+    direction: rtl;
+    margin: 0;
+    padding: 0;
+}
+
+/* استایل برای container */
+.container {
+    padding: 20px;
+    text-align: center;
+}
+
+/* استایل برای پاپ‌آپ */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 1000;
+}
+
+/* استایل برای overlay پاپ‌آپ */
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+/* استایل دکمه‌های پاپ‌آپ */
+.popup button {
+    margin: 10px 0;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.popup button:hover {
+    background-color: #0056b3;
+}
+
+/* استایل برای دکمه بستن */
+.close-btn {
+    background-color: red;
+}
+
+/* استایل برای فرم‌ها */
+form input {
+    width: 90%;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* استایل برای نمایش پیام موفقیت یا خطا */
+.message {
+    margin-top: 10px;
+    color: green;
+}
+
+.error {
+    color: red;
+}
+
+/* استایل کلی برای جدول */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    max-height: 400px; /* حداکثر ارتفاع برای جدول */
+    overflow-y: auto; /* فعال‌سازی اسکرول برای جدول */
+}
+
+/* استایل برای هر سلول جدول */
+table th, table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+    word-wrap: break-word;
+    box-sizing: border-box; /* برای اطمینان از محاسبه دقیق عرض */
+}
+
+/* استایل برای عنوان ستون (هدر جدول) */
+table th {
+    background-color: #f2f2f2;
+    color: #333;
+    font-weight: bold; /* ضخیم‌تر کردن متن هدر */
+    position: sticky; /* ثابت ماندن هدر هنگام اسکرول */
+    top: 0;
+    z-index: 1; /* برای جلوگیری از پوشش هدر توسط سایر سلول‌ها */
+    text-align: center; /* هم‌راستایی عنوان‌ها */
+}
+
+/* استایل برای دکمه حذف */
+button.delete-btn {
+    padding: 5px 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+button.delete-btn:hover {
+    background-color: darkred;
+}
+
+/* استایل برای ستون عملیات (دکمه حذف) */
+th:last-child, td:last-child {
+    width: 120px; /* عرض ستون دکمه حذف */
+}
+
+/* استایل برای فرم حذف */
+form {
+    display: inline;
+}
