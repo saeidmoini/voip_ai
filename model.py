@@ -2,9 +2,9 @@ import re
 from datetime import datetime
 from peewee import MySQLDatabase, Model, CharField, IntegerField, Insert
 from playhouse.db_url import connect
+from config import logger, DB_USER, DB_PASS, DB_PORT, DB_DATABASE
 
-
-database = connect('mysql://voip:1234@127.0.0.1:3306/voip')
+database = connect(f'mysql://{DB_USER}:{DB_PASS}@127.0.0.1:{DB_PORT}/{DB_DATABASE}')
 
 
 class BaseModel(Model):
@@ -19,8 +19,12 @@ class User(BaseModel):
     id = None
     telephone = CharField(max_length=11)
     name = CharField(max_length=255)
-    coldrooms_number = CharField(max_length=255)
+    coldrooms_code = CharField(max_length=255)
     coldrooms_phone = CharField(max_length=255)
+
+
+with database:
+    database.create_tables([User])
 
 
 def validate_phone(value):
@@ -35,6 +39,7 @@ def validate_phone(value):
     else:
         # شماره نامعتبر است
         return False
+
 
 class CachedValue:
     def __init__(self):

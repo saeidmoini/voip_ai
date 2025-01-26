@@ -4,15 +4,14 @@ app = Flask(__name__)
 
 @app.route('/', methods=['Get', 'POST'])
 def home():
-    with database:
-        database.create_tables([User])
+
     query = request.form.get('query')
     if query:
         # جستجو در پایگاه داده (بر اساس نام یا شماره تلفن)
         users = User.select().where(
             (User.name.contains(query)) |
             (User.telephone.contains(query)) |
-            (User.coldrooms_number.contains(query))
+            (User.coldrooms_code.contains(query))
         )
     else:
         # اگر جستجویی وجود ندارد، تمام کاربران را واکشی کن
@@ -38,7 +37,7 @@ def add_user():
     users = User.select()  # بارگذاری مجدد کاربران از دیتابیس
     name = request.form['name']
     telephone = validate_phone(request.form['telephone'])
-    coldrooms_number = request.form['coldrooms_number']
+    coldrooms_code = request.form['coldrooms_code']
     coldrooms_phone = validate_phone(request.form['coldrooms_phone'])
 
     if not telephone:
@@ -49,7 +48,7 @@ def add_user():
         User.create(
             name=name,
             telephone=telephone,
-            coldrooms_number=coldrooms_number,
+            coldrooms_code=coldrooms_code,
             coldrooms_phone=coldrooms_phone
         )
         users = User.select()  # بارگذاری مجدد کاربران از دیتابیس

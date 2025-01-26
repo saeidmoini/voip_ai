@@ -1,6 +1,7 @@
 import logging
 logger = logging.getLogger('agi_logger')
 
+
 def record_audio(agi, output_path):
     logger.info("Starting recording...")
     try:
