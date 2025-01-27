@@ -9,21 +9,24 @@ from src.openai_module import AvalAiApi, prompt
 from src.talk_bot import TalkBot
 #from src.asure import AzureTTS
 from functions import Report
-
+from report_analysis import Analysis
 async def main():
-    logger.info("App Started")
-    phone = "09105881921"
-    report = Report(phone)
-
-    if report.phone_check:
-        report_res = asyncio.create_task(report.get_reports())
-        report.coldroom_exist(1234)
-    else:
-        print(False)
-        return
-
-    while not report_res.done():
-        await asyncio.sleep(1)
+    # logger.info("App Started")
+    # phone = "09157773007"
+    # report = Report(phone)
+    #
+    # if report.phone_check:
+    #     report_res = await report.get_reports()
+    #     print(report_res)
+    #     #report.coldroom_exist(1234)
+    # else:
+    #     print(False)
+    #     return
+    #
+    x= Analysis()
+    x.relays()
+    # while not report_res.done():
+    #     await asyncio.sleep(1)
 
 
 async def start_call():
@@ -103,6 +106,6 @@ def number_to_persian_words(number):
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
     #asyncio.run(start_call())
+    asyncio.run(main())
 

@@ -38,7 +38,8 @@
             <th>تلفن</th>
             <th>تعداد سردخانه‌ها</th>
             <th>تلفن سردخانه‌ها</th>
-            <th>عملیات</th> <!-- ستون جدید برای دکمه حذف -->
+            <th>حذف</th> <!-- ستون جدید برای ستون حذف -->
+            <th>ویرایش</th> <!-- عنوان جدید برای ستون ویرایش -->
         </tr>
     </thead>
     <tbody>
@@ -46,9 +47,10 @@
         <tr>
             <td>{{ user.name }}</td>
             <td>{{ user.telephone }}</td>
-            <td>{{ user.coldrooms_number }}</td>
+            <td>{{ user.coldrooms_code }}</td>
             <td>{{ user.coldrooms_phone }}</td>
             <td>
+                <button value="{{user.__data__.values()}}" class="bg-info btn open-popup-edit">ثبت اطلاعات جدید</button>
                 <!-- دکمه حذف که به URL حذف ارسال می‌شود -->
                 <form method="POST" action="/delete_user/{{user.id }}">
                     <button type="submit">حذف</button>
@@ -66,12 +68,12 @@
 
     <div class="popup" id="popup">
         <h2>فرم اطلاعات</h2>
-        <form id="user-form" method="POST" action="/add_user">
+        <form id="user-form" method="POST" action="">
             <input type="text" name="name" placeholder="نام" required>
             <input type="text" name="telephone" placeholder="تلفن" required>
-            <input type="number" name="coldrooms_number" placeholder="تعداد سردخانه‌ها" required>
+            <input type="number" name="coldrooms_code" placeholder="تعداد سردخانه‌ها" required>
             <input type="text" name="coldrooms_phone" placeholder="تلفن سردخانه‌ها" required>
-            <button type="submit">ثبت</button>
+            <button type="submit" name="id">ثبت</button>
             <button type="button" class="close-btn" id="close-popup-btn">بستن</button>
         </form>
     </div>

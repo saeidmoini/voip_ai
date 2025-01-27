@@ -2,7 +2,7 @@ import asyncio
 import json
 from datetime import datetime
 import requests
-from config import PHONE_MELIPAYAMAK, logger
+from config import PHONE_MELIPAYAMAK, logger,Melipayamak_API
 from model import database, User, CachedValue
 
 
@@ -20,7 +20,7 @@ class Report:
 
     def send_message(self):
         data = {'from': PHONE_MELIPAYAMAK, 'to': self.coldrooms_phone_list, 'text': 'Report', 'udh': ''}
-        response = requests.post('https://console.melipayamak.com/api/send/advanced/162e19ebd29b48b0a87f76b0cd485f9f',
+        response = requests.post(f'https://console.melipayamak.com/api/send/advanced/{Melipayamak_API}',
                                  json=data)
 
         try:
@@ -35,7 +35,7 @@ class Report:
             PhonCool = PhonCool.lstrip("0")
             self.coldrooms_phone_list.append(PhonCool)
 
-        # send_message()
+        self.send_message()
         try:
             await asyncio.wait_for(
                 self.get_messages_loop(),
@@ -57,9 +57,10 @@ class Report:
     async def get_messages(self, now):
         data = {'type': 'in', 'number': PHONE_MELIPAYAMAK, 'index': 0, 'count': 4}
         response = requests.post(
-            'https://console.melipayamak.com/api/receive/messages/162e19ebd29b48b0a87f76b0cd485f9f',
+            f'https://console.melipayamak.com/api/receive/messages/{Melipayamak_API}',
             json=data)
         data = json.loads(response.text)
+        print(data)
         for item in data["messages"]:
             datetime_object = datetime.strptime(item['sendDate'], "%Y-%m-%dT%H:%M:%S.%f")
             if datetime_object > now.get_value() and item['sender'] in self.coldrooms_phone_list:

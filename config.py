@@ -5,14 +5,13 @@ import codecs
 sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
 
 PATH = os.path.dirname(os.path.abspath(__file__))
-DB_USER = 'root'
-DB_PASS = ''
-DB_PORT = 3307
+DB_USER = 'voip'
+DB_PASS = '1234'
+DB_PORT = 3306
 DB_DATABASE = 'voip'
-ROOT_USERNAME = 'root'
-ROOT_PASSWORD = 'Arse@1990'
-PHONE_MELIPAYAMAK = '50004001008175'
+PHONE_MELIPAYAMAK = '50002710037028'
 
+Melipayamak_API = "162e19ebd29b48b0a87f76b0cd485f9f"
 Avalai_API = "aa-4xhO0hL9vzi7m8fCOLZqY5G02fcsfCyWL2jbmC9nzUlJkprC"
 Talkbot_API = "sk-69a9bec33dedd7311f91cb78d60d849c"
 #IoType_API = "eKM0yz0On7nJkTrWhhmXxiAjYGi14Kty"
