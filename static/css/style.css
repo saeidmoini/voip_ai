@@ -108,7 +108,7 @@ table th {
 }
 
 /* استایل برای دکمه حذف */
-button.delete-btn {
+button.table-btn {
     padding: 5px 10px;
     background-color: red;
     color: white;

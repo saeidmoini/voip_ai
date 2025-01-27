@@ -1,10 +1,12 @@
+
 from flask import Flask, render_template, request, redirect, url_for
 from model import User, validate_phone
+
 app = Flask(__name__)
 
-@app.route('/', methods=['Get', 'POST'])
-def home():
 
+@app.route('/', methods=['Get', 'POST'])
+def index():
     query = request.form.get('query')
     if query:
         # جستجو در پایگاه داده (بر اساس نام یا شماره تلفن)
@@ -19,6 +21,7 @@ def home():
 
     return render_template('index.html', users=users)
 
+# مسیر حذف کاربر
 @app.route('/delete_user/<int:user_id>', methods=['POST'])
 def delete_user(user_id):
     try:
@@ -58,5 +61,16 @@ def add_user():
         users = User.select()  # بارگذاری مجدد کاربران از دیتابیس
         return render_template('index.html', message=f'خطا در ذخیره اطلاعات: {str(e)}', error=True, users=users)
 
-if __name__ == "__main__":
-    app.run()
+@app.route('/edit_user/', methods=['POST'])
+def edit_user():
+    users = User.select()
+    id = request.form['id']
+    user = User.get(User.id == id)   # پیدا کردن کاربر بر اساس شناسه
+    rows_updated = User.update(
+        name=request.form['name'],
+        telephone=request.form['telephone'],
+        coldrooms_code=request.form['coldrooms_code'],
+        coldrooms_phone=request.form['coldrooms_phone']
+    ).where(User.id == user.id).execute()
+
+    return render_template(template_name_or_list='index.html', users=users, rows_updated=rows_updated )

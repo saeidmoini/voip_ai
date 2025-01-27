@@ -2,8 +2,9 @@ import asyncio
 import json
 from datetime import datetime
 import requests
-from config import PHONE_MELIPAYAMAK, logger
-from model import User, CachedValue
+from config import PHONE_MELIPAYAMAK, logger,Melipayamak_API
+from model import database, User, CachedValue
+
 
 
 class Report:
@@ -20,7 +21,8 @@ class Report:
 
     def send_message(self):
         data = {'from': PHONE_MELIPAYAMAK, 'to': self.coldrooms_phone_list, 'text': 'Report', 'udh': ''}
-        response = requests.post('https://console.melipayamak.com/api/send/advanced/bdee1f57c9eb4e7498e28cb9293eee07',
+        response = requests.post(f'https://console.melipayamak.com/api/send/advanced/{Melipayamak_API}',
+
                                  json=data)
 
         try:
@@ -57,9 +59,11 @@ class Report:
     async def get_messages(self, now):
         data = {'type': 'in', 'number': PHONE_MELIPAYAMAK, 'index': 0, 'count': 10}
         response = requests.post(
-            'https://console.melipayamak.com/api/receive/messages/bdee1f57c9eb4e7498e28cb9293eee07',
+            f'https://console.melipayamak.com/api/receive/messages/{Melipayamak_API}',
+
             json=data)
         data = json.loads(response.text)
+        print(data)
         for item in data["messages"]:
             datetime_object = datetime.strptime(item['sendDate'], "%Y-%m-%dT%H:%M:%S.%f")
             if datetime_object > now.get_value() and item['sender'] in self.coldrooms_phone_list:
