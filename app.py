@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for
-from model import database, User, validate_phone
+from flask import Flask, render_template, request, redirect, url_for
+from model import User, validate_phone
 app = Flask(__name__)
 
 @app.route('/', methods=['Get', 'POST'])

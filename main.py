@@ -2,12 +2,10 @@
 import time
 import os
 import asyncio
-from config import Avalai_API, logger, PATH, Talkbot_API
+from config import Avalai_API, logger, PATH
 from asterisk.agi import AGI
 from src.audio import record_audio
-from src.openai_module import AvalAiApi, prompt
-from src.talk_bot import TalkBot
-#from src.asure import AzureTTS
+from src.openai_module import AvalAiApi
 from functions import Report
 
 async def main():
@@ -17,21 +15,19 @@ async def main():
 
     if report.phone_check:
         report_res = asyncio.create_task(report.get_reports())
-        report.coldroom_exist(1234)
     else:
-        print(False)
+        print("no phone")
         return
 
     while not report_res.done():
         await asyncio.sleep(1)
+    print(report_res)
 
 
 async def start_call():
     start = time.time()
 
-    #Talk_Bot = TalkBot(Talkbot_API, PATH)
     Avalai_Api = AvalAiApi(Avalai_API, PATH)
-    # azure_tts = AzureTTS(subscription_key="sk-69a9bec33dedd7311f91cb78d60d849c", region="westeurope", path=PATH)
 
     # agi = AGI()
     # agi.answer()

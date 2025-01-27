@@ -1,6 +1,6 @@
 import re
 from datetime import datetime
-from peewee import MySQLDatabase, Model, CharField, IntegerField, Insert
+from peewee import Model, CharField
 from playhouse.db_url import connect
 from config import logger, DB_USER, DB_PASS, DB_PORT, DB_DATABASE
 
