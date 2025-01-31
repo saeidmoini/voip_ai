@@ -58,14 +58,6 @@ body {
     background-color: red;
 }
 
-/* استایل برای فرم‌ها */
-form input {
-    width: 90%;
-    margin: 10px 0;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
 
 /* استایل برای نمایش پیام موفقیت یا خطا */
 .message {
@@ -77,35 +69,19 @@ form input {
     color: red;
 }
 
-/* استایل کلی برای جدول */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    border: 1px solid #ccc;
-    max-height: 400px; /* حداکثر ارتفاع برای جدول */
-    overflow-y: auto; /* فعال‌سازی اسکرول برای جدول */
-}
 
 /* استایل برای هر سلول جدول */
-table th, table td {
-    padding: 12px;
-    border: 1px solid #ddd;
-    text-align: center;
-    word-wrap: break-word;
-    box-sizing: border-box; /* برای اطمینان از محاسبه دقیق عرض */
+th {
+    background-color: #00b2ff !important;
+    color: white !important; /* رنگ نوشته سفید */
+    padding: 12px !important;
+    border: 1px solid #ddd !important;
+    text-align: center !important; /* متن را به صورت افقی در وسط قرار می‌دهد */
+    vertical-align: middle !important; /* متن را به صورت عمودی در وسط قرار می‌دهد */
+    word-wrap: break-word !important;
+    box-sizing: border-box !important; /* برای اطمینان از محاسبه دقیق عرض */
 }
 
-/* استایل برای عنوان ستون (هدر جدول) */
-table th {
-    background-color: #f2f2f2;
-    color: #333;
-    font-weight: bold; /* ضخیم‌تر کردن متن هدر */
-    position: sticky; /* ثابت ماندن هدر هنگام اسکرول */
-    top: 0;
-    z-index: 1; /* برای جلوگیری از پوشش هدر توسط سایر سلول‌ها */
-    text-align: center; /* هم‌راستایی عنوان‌ها */
-}
 
 /* استایل برای دکمه حذف */
 button.table-btn {
