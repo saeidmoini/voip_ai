@@ -5,8 +5,9 @@ const popup = document.getElementById('popup');
 const overlay = document.getElementById('popup-overlay');
 const popupForm = document.getElementById('user-form');
 
-// باز کردن پاپ‌آپ
-openPopupBtn.addEventListener('click', () => {
+
+openPopupBtn.addEventListener("click", function (event) {
+    event.preventDefault(); // جلوگیری از رفتار پیش‌فرض فرم
     popup.style.display = 'block';
     overlay.style.display = 'block';
 
@@ -47,6 +48,7 @@ closePopupBtn.addEventListener('click', () => {
 overlay.addEventListener('click', () => {
     popup.style.display = 'none';
     overlay.style.display = 'none';
+
 });
 
 
