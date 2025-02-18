@@ -73,8 +73,8 @@ def edit_user():
         coldrooms_phone=request.form['coldrooms_phone']
     ).where(User.id == user.id).execute()
 
-    return render_template(template_name_or_list='index.html', users=users, rows_updated=rows_updated)
-
+    return render_template(template_name_or_list='index.html', users=users, rows_updated=rows_updated )
 
 if __name__ == '__main__':
     app.run(debug=True)
+
