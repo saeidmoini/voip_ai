@@ -1,85 +1,46 @@
-from openai import OpenAI
-import logging
+from src.logger_config import logger, PATH
 import asyncio
 import os
-from pydub import AudioSegment
 from langchain_openai import ChatOpenAI
-
-logger = logging.getLogger('agi_logger')
-
-
-def prompt(transcription):
-    prompt_str =f"""
-    متن زیر را بررسی کن و اگر کدی (عدد) در آن هست، فقط آن عدد را به‌صورت یک عدد صحیح بازگردان.
-    در صورتی که کد به‌صورت اعداد جداگانه (مثلاً "یک، دو، سه، چهار") ذکر شده باشد، آن‌ها را به یک عدد کامل ترکیب کن (مثلاً "یک، دو، سه، چهار" = "1234").
-    اگر عددی وجود ندارد، فقط این جمله را بازگردان: "لطفا دوباره تلاش کنید".
-
-    مثال‌ها:
-    - متن: "کد من یک دو سه چهار است" -> 1234
-    - متن: "کد: دو پنج صفر" -> 250
-    - متن: "هیچ عددی اینجا نیست" -> پاسخ: لطفا دوباره تلاش کنید
-    - متن: "کد من هفت هزار و بیست و یک است" -> 7021
-    - متن: "کد من ۹ ۸ ۷ ۶ است" -> 9876
-
-    متن: {transcription}
-    """
-    return prompt_str
 
 
 class AvalAiApi:
-    def __init__(self, API_KEY, PATH):
-        self.client = OpenAI(
-            base_url="https://api.avalai.ir/v1",
-            api_key=API_KEY
-        )
+    def __init__(self, API_KEY):
         self.API_KEY = API_KEY
-        self.PATH = PATH
-        self.history = []
+        self.chat = ChatOpenAI(model="gpt-3.5-turbo", base_url="https://api.avalai.ir/v1", api_key=self.API_KEY, temperature=0)
 
-    async def stt(self, audio_file):
-        logger.info(f"Sending {audio_file} for API")
+        self.messages = [
+            {"role": "system",
+             "content": "شما یک دستیار هوشمند هستید که به کاربر کمک می‌کنید تا اطلاعات سردخانه خود را دریافت کند. اطلاعات شامل رطوبت (HUM1)، وضعیت برق (Vbat)، دما (TEMP1) و شارژ سیم‌کارت (Credit) می‌شود. اگر کاربر یکی از این موارد را درخواست کرد، فقط کد انگلیسی آن را برگردانید (HUM1، Vbat، TEMP1 یا Credit). اگر کاربر چیزی غیر از این موارد پرسید، به صورت روان و فارسی (اصلا از کلمات انگلیسی استفاده نکن) به او کمک کنید تا یکی از این موارد را انتخاب کند."}
+        ]
+        self.components = {
+            "رطوبت": "HUM1",
+            "وضعیت برق": "Vbat",
+            "دما": "TEMP1",
+            "شارژ سیم‌کارت": "Credit"
+        }
 
-        with open(audio_file, "rb") as audio:
-            transcription = self.client.audio.transcriptions.create(
-                model="whisper-1",
-                file=audio,
-                response_format="text",
-                language="fa"
-            )
-        return transcription
+    async def start_conversation(self, user_input):
+        """ Sends a request to DeepSeek API and returns the appropriate component code. """
+        self.messages.append({"role": "user", "content": user_input})
 
-    async def text_to_speech(self, text, file_name):
-        response = self.client.audio.speech.create(
-            model="tts-1",
-            voice="echo",
-            input=text,
-        )
-        speech_file_path = os.path.join(self.PATH, "logs", f"{file_name}.mp3")
-        wav_file = os.path.join(self.PATH, "logs", f"{file_name}.wav")
-        response.stream_to_file(speech_file_path)
-        await asyncio.to_thread(self.convert_mp3_to_wav, speech_file_path, wav_file)
+        response = self.chat.invoke(self.messages)
+
+        assistant_reply = response.content
+        self.messages.append({"role": "assistant", "content": response.content})
+
+        status, answer_analys = self.analyze_user_input(assistant_reply)
+        return status, answer_analys
+
+    def analyze_user_input(self, assistant_reply):
+        """
+        تحلیل متن کاربر با کمک هوش مصنوعی برای تشخیص درخواست.
+        """
+        # بررسی هر کلمه در متن کاربر
+        for component, word in self.components.items():
+            if word in assistant_reply:
+                return True, word
+        return None, assistant_reply
 
 
-    @staticmethod
-    def convert_mp3_to_wav(mp3_file, wav_file):
-        try:
-            # Load the MP3 file
-            audio = AudioSegment.from_mp3(mp3_file)
-            audio = audio.set_frame_rate(8000)
-            # Export the audio as a WAV file
-            audio.export(wav_file, format="wav")
-            os.remove(mp3_file)
-            logger.info(f"Successfully converted {mp3_file} to {wav_file}")
-        except Exception as e:
-            logger.info(f"Error converting {mp3_file}: {e}")
-
-    async def chatting(self, text):
-        # Append the new message to history
-        chat = ChatOpenAI(model="gpt-3.5-turbo", base_url="https://api.avalai.ir/v1", api_key=self.API_KEY, temperature=0 )
-        self.history.append({"role": "user", "content": text})
-        # Call the API with the entire conversation history
-        response = chat.invoke(self.history)
-        # Append AI's response to the history
-        self.history.append({"role": "assistant", "content": response.content})
-        return response.content.strip()
 

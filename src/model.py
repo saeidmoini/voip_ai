@@ -2,7 +2,7 @@ import re
 from datetime import datetime
 from peewee import Model, CharField
 from playhouse.db_url import connect
-from config import logger, DB_USER, DB_PASS, DB_PORT, DB_DATABASE
+from config import DB_USER, DB_PASS, DB_PORT, DB_DATABASE
 
 database = connect(f'mysql://{DB_USER}:{DB_PASS}@127.0.0.1:{DB_PORT}/{DB_DATABASE}')
 
@@ -41,14 +41,4 @@ def validate_phone(value):
         return False
 
 
-class CachedValue:
-    def __init__(self):
-        self.cached_value = None
 
-    def get_value(self):
-        if self.cached_value is None:  # مقداردهی تنها در بار اول
-            self.cached_value = datetime.now()
-        return self.cached_value
-
-    def reset_value(self):  # بازنشانی مقدار
-        self.cached_value = datetime.now()

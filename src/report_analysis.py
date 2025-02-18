@@ -1,9 +1,6 @@
-
 class Analysis:
-    def __init__(self):
-        self.text= """relays=0x000\ninputs=0x00\nM=0x5a04\nADC1=0.0 v\nADC2=0.0 v\nADC3=0.0 v\nADC4=0.0 v\nVdc=11.6 v
-        \nVbat=0.0 v\nHUM=NC\nTEMP=-16.0\nHUM1=NC\nTEMP1=-15.9\nTEMP2=NC\nTEMP3=NC\nTEMP4=NC\nSIGNAL=26.0\nCredit=531.8
-        \nUPTIME=123:39:31\nCloud=1,GSM\n9901=v5.3.0\n"""
+    def __init__(self, text):
+        self.text = text
 
     def Vbat(self):
         for line in self.text.splitlines():
@@ -22,7 +19,6 @@ class Analysis:
                     return "سرخانه شما رطوبتی ندارد"
                 else:
                     return f"رطوبت سرخانه شما {HUM1_value} درصد می باشد"
-
 
     def TEMP1(self):
         for line in self.text.splitlines():
@@ -51,8 +47,10 @@ class Analysis:
                     return "سیستم در حال دیفراست و برفک زدایی می باشد"
                 if relays_value == '0x008':
                     return "سالن بالای صفر روشن می باشد"
-                if relays_value == '0x00f':
+                if relays_value == '0x007':
                     return "کلیه قسمت های زیر صفر و بالای صفر روشن و درحال کار می باشند"
+                if relays_value == '0x005':
+                    return "اطلاعاتی راجب relays در دسترس نیست"
 
     def inputs(self):
         for line in self.text.splitlines():
@@ -66,5 +64,5 @@ class Analysis:
                     return "حرارت بالای موتور باعث عملکرد ترمیستور حفاظتی شده و کمپرسور خاموش شده است"
                 if inputs_value == '0x08':
                     return "برق ورودی سرخانه نقص دارد و باعث خاموش شدن سردخانه شده است لطفا برای رفع ایراد ورودی برق را چک کنید"
-                if inputs_value == '0x08':
-                    return "برق ورودی سرخانه نقص دارد و باعث خاموش شدن سردخانه شده است لطفا برای رفع ایراد ورودی برق را چک کنید"
+                if inputs_value == '0x00':
+                    return "اطلاعاتی راجب input در دسترس نیست"
