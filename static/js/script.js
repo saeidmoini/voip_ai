@@ -5,7 +5,6 @@ const popup = document.getElementById('popup');
 const overlay = document.getElementById('popup-overlay');
 const popupForm = document.getElementById('user-form');
 
-
 openPopupBtn.addEventListener("click", function (event) {
     event.preventDefault(); // جلوگیری از رفتار پیش‌فرض فرم
     popup.style.display = 'block';

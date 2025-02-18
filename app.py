@@ -1,6 +1,5 @@
-
-from flask import Flask, render_template, request, redirect, url_for
-from model import User, validate_phone
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory
+from src.model import User, validate_phone
 
 app = Flask(__name__)
 
@@ -21,6 +20,7 @@ def index():
 
     return render_template('index.html', users=users)
 
+
 # مسیر حذف کاربر
 @app.route('/delete_user/<int:user_id>', methods=['POST'])
 def delete_user(user_id):
@@ -32,7 +32,6 @@ def delete_user(user_id):
     except Exception as e:
         print(f"Error occurred: {str(e)}")  # چاپ خطا در کنسول
         return redirect(url_for('index'))  # در صورت خطا، بازگشت به صفحه اصلی
-
 
 
 @app.route('/add_user', methods=['POST'])
@@ -61,11 +60,12 @@ def add_user():
         users = User.select()  # بارگذاری مجدد کاربران از دیتابیس
         return render_template('index.html', message=f'خطا در ذخیره اطلاعات: {str(e)}', error=True, users=users)
 
+
 @app.route('/edit_user/', methods=['POST'])
 def edit_user():
     users = User.select()
     id = request.form['id']
-    user = User.get(User.id == id)   # پیدا کردن کاربر بر اساس شناسه
+    user = User.get(User.id == id)  # پیدا کردن کاربر بر اساس شناسه
     rows_updated = User.update(
         name=request.form['name'],
         telephone=request.form['telephone'],
@@ -77,3 +77,4 @@ def edit_user():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
