@@ -76,10 +76,5 @@ def edit_user():
     return render_template(template_name_or_list='index.html', users=users, rows_updated=rows_updated)
 
 
-@app.route('/voice/<filename>')
-def get_voice(filename):
-    return send_from_directory('/root/voip_ai/audio', filename)
-
-
 if __name__ == '__main__':
     app.run(debug=True)

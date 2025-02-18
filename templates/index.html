@@ -10,8 +10,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>ثبت اطلاعات کاربر</h1>
-        <button id="open-popup-btn" class="bg-info btn">ثبت اطلاعات جدید</button>
+        <h1>شرکت سردخانه ها</h1>
 
         <!-- نمایش پیغام‌ها -->
         {% if message %}
@@ -19,47 +18,57 @@
             {{ message }}
         </div>
         {% endif %}
-
-       <h2>لیست کاربران</h2>
         <div class="row">
-            <div class="col-6">
+            <div class="col-12">
                 <form action="/" method="post">
-                    <input class="col-4" type="text" name="query" placeholder="جستجو ...">
+                    <input class="col-6" type="text" name="query" placeholder="جستجو نام یا تلفن...">
                     <button class="col-2" type="submit" name="submit" value="submit" >جستجو</button>
+                    <button id="open-popup-btn" class="col-2 bg-info btn">ثبت اطلاعات جدید</button>
                 </form>
             </div>
         </div>
+        <h2>لیست کاربران</h2>
     </div>
 {% if users %}
-<table>
-    <thead>
-        <tr>
-            <th>نام</th>
-            <th>تلفن</th>
-            <th>تعداد سردخانه‌ها</th>
-            <th>تلفن سردخانه‌ها</th>
-            <th>حذف</th> <!-- ستون جدید برای ستون حذف -->
-            <th>ویرایش</th> <!-- عنوان جدید برای ستون ویرایش -->
-        </tr>
-    </thead>
-    <tbody>
-        {% for user in users %}
-        <tr>
-            <td>{{ user.name }}</td>
-            <td>{{ user.telephone }}</td>
-            <td>{{ user.coldrooms_code }}</td>
-            <td>{{ user.coldrooms_phone }}</td>
-            <td>
-                <button value="{{user.__data__.values()}}" class="bg-info btn open-popup-edit">ثبت اطلاعات جدید</button>
-                <!-- دکمه حذف که به URL حذف ارسال می‌شود -->
-                <form method="POST" action="/delete_user/{{user.id }}">
-                    <button type="submit">حذف</button>
-                </form>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10">
+            <div class="table-responsive" style="max-height: 550px;">
+                <table class="table table-bordered">
+                     <thead class="bg-primary text-white" style="position: sticky; top: 0;">
+                        <tr>
+                            <th>نام</th>
+                            <th>تلفن</th>
+                            <th>تعداد سردخانه‌ها</th>
+                            <th>تلفن سردخانه‌ها</th>
+                            <th>حذف</th> <!-- ستون جدید برای ستون حذف -->
+                            <th>ویرایش</th> <!-- عنوان جدید برای ستون ویرایش -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.telephone }}</td>
+                            <td>{{ user.coldrooms_code }}</td>
+                            <td>{{ user.coldrooms_phone }}</td>
+                            <td>
+                                <!-- دکمه حذف که به URL حذف ارسال می‌شود -->
+                                <form method="POST" action="/delete_user/{{user.id }}">
+                                    <button type="submit">حذف</button>
+                                </form>
+                            </td>
+                            <td>
+                             <button value="{{user.__data__.values()}}" class="bg-info btn open-popup-edit">ویرایش اطلاعات</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 {% else %}
 <p>هیچ کاربری در سیستم ثبت نشده است.</p>
 {% endif %}
