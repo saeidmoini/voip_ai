@@ -39,6 +39,7 @@ def add_user():
     users = User.select()  # بارگذاری مجدد کاربران از دیتابیس
     name = request.form['name']
     telephone = validate_phone(request.form['telephone'])
+    city = request.form['city']
     coldrooms_code = request.form['coldrooms_code']
     coldrooms_phone = validate_phone(request.form['coldrooms_phone'])
 
@@ -50,6 +51,7 @@ def add_user():
         User.create(
             name=name,
             telephone=telephone,
+            city=city,
             coldrooms_code=coldrooms_code,
             coldrooms_phone=coldrooms_phone
         )
@@ -69,6 +71,7 @@ def edit_user():
     rows_updated = User.update(
         name=request.form['name'],
         telephone=request.form['telephone'],
+        city=request.form['city'],
         coldrooms_code=request.form['coldrooms_code'],
         coldrooms_phone=request.form['coldrooms_phone']
     ).where(User.id == user.id).execute()

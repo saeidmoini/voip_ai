@@ -39,6 +39,7 @@
                         <tr>
                             <th>نام</th>
                             <th>تلفن</th>
+                            <th>شهر</th>
                             <th>کد سردخانه</th>
                             <th>تلفن سردخانه‌ها</th>
                             <th>حذف</th> <!-- ستون جدید برای ستون حذف -->
@@ -50,6 +51,7 @@
                         <tr>
                             <td>{{ user.name }}</td>
                             <td>{{ user.telephone }}</td>
+                            <td>{{ user.city }}</td>
                             <td>{{ user.coldrooms_code }}</td>
                             <td>{{ user.coldrooms_phone }}</td>
                             <td>
@@ -80,6 +82,7 @@
         <form id="user-form" method="POST" action="">
             <input type="text" name="name" placeholder="نام" required>
             <input type="text" name="telephone" placeholder="تلفن" required>
+            <<input type="text" name="city" placeholder="شهر" required>
             <input type="number" name="coldrooms_code" placeholder="کد سردخانه" required>
             <input type="text" name="coldrooms_phone" placeholder="تلفن سردخانه‌ها" required>
             <button type="submit" name="id">ثبت</button>
