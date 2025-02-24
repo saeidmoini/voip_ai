@@ -15,6 +15,7 @@ openPopupBtn.addEventListener("click", function (event) {
     popupForm.children[2].value = ""
     popupForm.children[3].value = ""
     popupForm.children[4].value = ''
+    popupForm.children[5].value = ''
     popupForm.action = "/add_user"
 });
 
@@ -30,6 +31,7 @@ for (let i = 0; i < openPopupEdit.length; i++) {
         overlay.style.display = 'block';
         popupForm.children[0].value = name
         popupForm.children[1].value = phone
+        popupForm.children[1].value = city
         popupForm.children[2].value = code
         popupForm.children[3].value = coldroom
         popupForm.children[4].value = id
