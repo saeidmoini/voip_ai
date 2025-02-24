@@ -1,6 +1,7 @@
 class Analysis:
     def __init__(self, text):
         self.text = text
+        self.defrost = False
 
     def Vbat(self):
         for line in self.text.splitlines():
@@ -35,34 +36,38 @@ class Analysis:
                 credit_value = float(line.split("=")[1].strip())
                 return f"شارژ سرخانه شما {credit_value} ریال می باشد"
 
-    def relays(self):
+    def general(self):
+        respond = ""
+
         for line in self.text.splitlines():
             if line.startswith("relays="):
                 relays_value = line.split("=")[1].strip()
                 if relays_value == '0x000':
-                    return "همه دستگاه های سردخانه خاموش یا در حالت اتومات هستند"
-                if relays_value == '0x001':
-                    return "کمپرسور و سالن زیر صفر روشن هستند"
-                if relays_value == '0x004':
-                    return "سیستم در حال دیفراست و برفک زدایی می باشد"
-                if relays_value == '0x008':
-                    return "سالن بالای صفر روشن می باشد"
-                if relays_value == '0x007':
-                    return "کلیه قسمت های زیر صفر و بالای صفر روشن و درحال کار می باشند"
-                if relays_value == '0x005':
-                    return "اطلاعاتی راجب relays در دسترس نیست"
+                    respond = "همه دستگاه های سردخانه خاموش یا در حالت اتومات هستند"
+                elif relays_value == '0x001':
+                    respond = "کمپرسور و سالن زیر صفر روشن هستند"
+                elif relays_value == '0x004':
+                    respond = "سیستم در حال دیفراست و برفک زدایی می باشد"
+                elif relays_value == '0x008':
+                    respond = "سالن بالای صفر روشن می باشد"
+                elif relays_value == '0x007':
+                    respond = "کلیه قسمت های زیر صفر و بالای صفر روشن و درحال کار می باشند"
+                elif relays_value == '0x005':
+                    self.defrost = True
+                    respond = "سردخانه در حال دیفراست است"
 
-    def inputs(self):
-        for line in self.text.splitlines():
-            if line.startswith("inputs="):
-                inputs_value = line.split("=")[1].strip()
-                if inputs_value == '0x01':
-                    return "کنترل بار کمپرسور عمل کرده و سرخانه خاموش است"
-                if inputs_value == '0x02':
-                    return "سیستم با کمبود گاز مواجه شده و کمپرسور خاموش است"
-                if inputs_value == '0x04':
-                    return "حرارت بالای موتور باعث عملکرد ترمیستور حفاظتی شده و کمپرسور خاموش شده است"
-                if inputs_value == '0x08':
-                    return "برق ورودی سرخانه نقص دارد و باعث خاموش شدن سردخانه شده است لطفا برای رفع ایراد ورودی برق را چک کنید"
-                if inputs_value == '0x00':
-                    return "اطلاعاتی راجب input در دسترس نیست"
+                if line.startswith("inputs="):
+                    inputs_value = line.split("=")[1].strip()
+                    if self.defrost:
+                        return respond
+                    elif inputs_value == '0x01':
+                        respond =  respond + "همچنین" + "کنترل بار کمپرسور عمل کرده و سرخانه خاموش است"
+                    elif inputs_value == '0x02':
+                        respond =  respond + "همچنین" + "سیستم با کمبود گاز مواجه شده و کمپرسور خاموش است"
+                    elif inputs_value == '0x04':
+                        respond =  respond + "همچنین" + "حرارت بالای موتور باعث عملکرد ترمیستور حفاظتی شده و کمپرسور خاموش شده است"
+                    elif inputs_value == '0x08':
+                        respond =  respond + "همچنین" + "برق ورودی سرخانه نقص دارد و باعث خاموش شدن سردخانه شده است لطفا برای رفع ایراد ورودی برق را چک کنید"
+                    elif inputs_value == '0x00':
+                        return respond
+                    return respond

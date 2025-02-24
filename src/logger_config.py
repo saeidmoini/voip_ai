@@ -18,6 +18,9 @@ logging.basicConfig(
 
 # Create a logger instance
 logger = logging.getLogger("agi_logger")
+# 🔹 Disable logs from external libraries
+logging.getLogger().setLevel(logging.WARNING)  # Blocks DEBUG & INFO from all libraries
+logger.setLevel(logging.DEBUG)
 
 # Fix encoding issue for Windows console
 import sys
