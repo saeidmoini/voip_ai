@@ -30,7 +30,7 @@ class Aipaa:
         }
         try:
             async with httpx.AsyncClient() as client:
-                response = await client.post(self.TOKEN_URL, data=payload, timeout=5)
+                response = await client.post(self.TOKEN_URL, data=payload, timeout=8)
                 response.raise_for_status()
                 token = response.json().get("access_token")
 

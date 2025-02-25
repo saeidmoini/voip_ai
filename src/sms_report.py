@@ -22,15 +22,13 @@ class Report:
             if not self.user.exists():
                 phone_notfound = os.path.join(PATH, "audio", "important_PhoneNotFound")
                 raise AttributeError(f"User with phone {self.phone} not found.", phone_notfound)
-
-            self.start = asyncio.create_task(self.get_reports())
+            return self.user
         except AttributeError as e:
             message, value = e.args[0]
             raise NotImplementedError((message, value))
         except NotImplementedError as e:
             message, value = e.args[0]
             raise NotImplementedError((message, value))
-
         except Exception as e:
             database_error = os.path.join(PATH, "audio", "important_DataBase_error")
             raise NotImplementedError((f"Database error while retrieving user: {str(e)}", database_error))

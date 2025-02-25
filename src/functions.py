@@ -3,27 +3,20 @@ import os
 from src.logger_config import logger, PATH
 from src.report_analysis import Analysis
 import uuid
-from config import Avalai_API, Aipaa_API
-from src.openai_module import AvalAiApi
-from src.aipaa import Aipaa
 
 
-async def transcribe_and_converse(audio_file, report_res):
+
+async def transcribe_and_converse(audio_file, report_res, aipaa_bot, aval):
 
     coldroom_timeout = os.path.join(PATH, "audio", "important_coldroom-timeout")
 
     """Function to run transcription and AI conversation in another process"""
     try:
-        aipaa_bot = Aipaa(Aipaa_API[0], Aipaa_API[1])
-
-        logger.info("Attempting to authenticate with Aipaa bot...")
-        await asyncio.wait_for(aipaa_bot.authenticate(), timeout=10)
-        aval = AvalAiApi(Avalai_API)
         transcription = "رطوبت"
         #transcription = await asyncio.wait_for(aipaa_bot.speech_to_text(audio_file), timeout=10)
         logger.info(f'Transcription result: {transcription}')
 
-        logger.info("Attempting to transcribe audio...")
+        logger.info("Attempting to analyze audio...")
         status, ai_answer = await asyncio.wait_for(aval.start_conversation(transcription), timeout=10)
         if status:
             logger.info("Aval ai answer : " + ai_answer)
@@ -50,7 +43,7 @@ async def transcribe_and_converse(audio_file, report_res):
         return status, audio_file
 
     except asyncio.TimeoutError:
-        raise NotImplementedError((f"Timeout occurred", coldroom_timeout))
+        raise NotImplementedError((f"Timeout Error in function", coldroom_timeout))
     except NotImplementedError as e:
         message, value = e.args[0]
         raise NotImplementedError((message, value))
