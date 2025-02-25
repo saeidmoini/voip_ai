@@ -19,6 +19,7 @@ class User(BaseModel):
     id = None
     telephone = CharField(max_length=11)
     name = CharField(max_length=255)
+    city = CharField(max_length=255, null=True)
     coldrooms_code = CharField(max_length=255)
     coldrooms_phone = CharField(max_length=255)
 
