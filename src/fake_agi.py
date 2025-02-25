@@ -18,6 +18,7 @@ class FakeAGI:
 
     def record_file(self, file, format, timeout):
         original_name = os.path.basename(file).split('_')[0]
+        time.sleep(5)
 
         # Path to the existing recording file
         source_file = os.path.join(self.path, "audio", f"{original_name}.{format}")

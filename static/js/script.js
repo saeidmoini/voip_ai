@@ -22,19 +22,24 @@ openPopupBtn.addEventListener("click", function (event) {
 for (let i = 0; i < openPopupEdit.length; i++) {
     const button = openPopupEdit[i];
     const arrayString = button.value.match(/\[.*\]/)[0];
-    const jsonString = arrayString.replace(/'/g, '"');
-    const dataArray = JSON.parse(jsonString);
-    const [id, phone, name, code, coldroom] = dataArray;
+    const jsonString = arrayString.replace(/None/g, "null").replace(/'/g, '"');
+    let dataArray;
+    try {
+        dataArray = JSON.parse(jsonString);
+    } catch (error) {
+        console.error("Invalid JSON format:", error);
+    }
+    const [id, phone, name, city, code, coldroom] = dataArray;
 
     button.addEventListener('click', () => {
         popup.style.display = 'block';
         overlay.style.display = 'block';
-        popupForm.children[0].value = name
-        popupForm.children[1].value = phone
-        popupForm.children[2].value = city
-        popupForm.children[3].value = code
-        popupForm.children[4].value = coldroom
-        popupForm.children[5].value = id
+        popupForm.children[0].value = name || "";
+        popupForm.children[1].value = phone || "";
+        popupForm.children[2].value = city || "";
+        popupForm.children[3].value = code || "";
+        popupForm.children[4].value = coldroom || "";
+        popupForm.children[5].value = id || "";
         popupForm.action = "/edit_user"
     });
 }

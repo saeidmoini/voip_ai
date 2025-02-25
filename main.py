@@ -3,10 +3,7 @@
 
 import os
 import asyncio
-#from asterisk.agi import AGI
-from src.fake_agi import FakeAGI
-AGI = FakeAGI
-from src.functions import transcribe_and_converse
+from src.functions import transcribe_and_converse, app_start
 from src.logger_config import logger, PATH
 from src.sms_report import Report
 import uuid
@@ -14,6 +11,10 @@ from src.utils import handle_timeout_or_failure
 from config import Aipaa_API, Avalai_API
 from src.aipaa import Aipaa
 from src.openai_module import AvalAiApi
+# from asterisk.agi import AGI
+from src.fake_agi import FakeAGI
+AGI = FakeAGI
+
 
 async def main():
     agi = AGI()
@@ -28,15 +29,29 @@ async def main():
     wait = os.path.join(PATH, "audio", "important_wait")
     ask_again = os.path.join(PATH, "audio", "important_ask-again")
     multi_wellcome = os.path.join(PATH, "audio", "important_multi_wellcome")
+    city_found = os.path.join(PATH, "audio", "important_city_found")
+    city_lost = os.path.join(PATH, "audio", "important_city_lost")
 
     try:
         aipaa_bot = Aipaa(Aipaa_API[0], Aipaa_API[1])
         aval = AvalAiApi(Avalai_API)
+        report = Report(phone)
+        user_info = await asyncio.wait_for(report.init_async(), timeout=5)
+        user_list = list(user_info)
         logger.info("Attempting to authenticate with Aipaa bot...")
-        await asyncio.wait_for(aipaa_bot.authenticate(), timeout=10)
+        hi_text = " سلام " + user_list[0].name
+
+        start_app = asyncio.create_task(app_start(aipaa_bot, hi_text))
+        while not start_app.done():
+            logger.info("Start Onhold")
+            await asyncio.to_thread(agi.stream_file, onhold)  # Play on-hold audio
+            await asyncio.sleep(1)
+
+        audio_file = await start_app
+        await asyncio.to_thread(agi.stream_file, audio_file)
 
     except asyncio.TimeoutError:
-        await handle_timeout_or_failure(agi, coldroom_timeout, f"Timeoute Error in main 1: {e}")
+        await handle_timeout_or_failure(agi, coldroom_timeout, f"Timeoute Error in main 1")
     except NotImplementedError as e:
         message, value = e.args[0]
         await handle_timeout_or_failure(agi, value, message)
@@ -44,30 +59,31 @@ async def main():
         await handle_timeout_or_failure(agi, coldroom_timeout, f"Error occurred in main 1: {e}")
 
     try:
-        report = Report(phone)
-        user_info = await asyncio.wait_for(report.init_async(), timeout=10)
-        logger.info(user_info)
-        if user_info.count() > 1:
+        if len(user_list) > 1:
             await asyncio.to_thread(agi.stream_file, multi_wellcome)
-            recording_file = os.path.join(PATH, "audio", f"recording_{uuid.uuid4()}")
-            agi.record_file(recording_file, 'wav', '#')
-            transcription = "گرگان"
-            # transcription = await asyncio.wait_for(aipaa_bot.speech_to_text(audio_file), timeout=10)
-            logger.info(f'Transcription result: {transcription}')
-            logger.info("Attempting to analyze audio...")
-            status, ai_answer = await asyncio.wait_for(aval.start_conversation(transcription), timeout=10)
-            if status:
-                logger.info("Aval ai answer : " + ai_answer)
+            while True:
+                recording_file = os.path.join(PATH, "audio", f"recording_{uuid.uuid4()}")
+                agi.record_file(recording_file, 'wav', '#')
+                await asyncio.to_thread(agi.stream_file, wait)
 
-
-
+                transcription = "مشهد"
+                # transcription = await asyncio.wait_for(aipaa_bot.speech_to_text(recording_file), timeout=10)
+                logger.info(f'Transcription result: {transcription}')
+                logger.info("Attempting to analyze audio...")
+                city = report.check_city(transcription)
+                if city:
+                    logger.info("My ai answer : " + city)
+                    report_res = asyncio.create_task(report.get_reports())
+                    await asyncio.to_thread(agi.stream_file, city_found)
+                    break
+                else:
+                    await asyncio.to_thread(agi.stream_file, city_lost)
         else:
-            report_res = asyncio.create_task(user_info.get_reports())
-
-        await asyncio.to_thread(agi.stream_file, wellcome)
+            report_res = asyncio.create_task(report.get_reports())
+            await asyncio.to_thread(agi.stream_file, wellcome)
 
     except asyncio.TimeoutError:
-        await handle_timeout_or_failure(agi, coldroom_timeout, f"Timeoute Error in main 2: {e}")
+        await handle_timeout_or_failure(agi, coldroom_timeout, f"Timeoute Error in main 2")
     except NotImplementedError as e:
         message, value = e.args[0]
         await handle_timeout_or_failure(agi, value, message)
@@ -82,7 +98,6 @@ async def main():
         try:
             while not transcribe_chat.done():
                 logger.info("Start Onhold")
-
                 await asyncio.to_thread(agi.stream_file, onhold)  # Play on-hold audio
                 await asyncio.sleep(1)  # Prevent blocking other tasks
 
@@ -92,6 +107,7 @@ async def main():
                 break
             else:
                 await asyncio.to_thread(agi.stream_file, ask_again)
+
         except NotImplementedError as e:
             message, value = e.args[0]
             await handle_timeout_or_failure(agi, value, message)
@@ -99,6 +115,7 @@ async def main():
             await handle_timeout_or_failure(agi, coldroom_timeout, f"Error occurred in main 3: {e}")
 
     agi.hangup()
+
 
 if __name__ == "__main__":
     asyncio.run(main())

@@ -5,6 +5,7 @@ from src.logger_config import logger, PATH
 
 avalai_error = os.path.join(PATH, "audio", "important_avalai_error")
 
+
 class AvalAiApi:
     def __init__(self, API_KEY):
         self.API_KEY = API_KEY

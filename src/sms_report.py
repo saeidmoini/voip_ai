@@ -6,19 +6,22 @@ import json
 import asyncio
 import os
 from src.logger_config import logger, PATH
+from rapidfuzz import process
 
 
 class Report:
     def __init__(self, phone):
+        self.user = None
         self.phone = phone
         self.coldrooms_phone_list = []
         self.reports = {}
 
     async def init_async(self):
         try:
-            self.user = User.select(User.coldrooms_phone).where(
+            self.user = User.select().where(
                 User.telephone.contains(self.phone)
             )
+
             if not self.user.exists():
                 phone_notfound = os.path.join(PATH, "audio", "important_PhoneNotFound")
                 raise AttributeError(f"User with phone {self.phone} not found.", phone_notfound)
@@ -32,6 +35,22 @@ class Report:
         except Exception as e:
             database_error = os.path.join(PATH, "audio", "important_DataBase_error")
             raise NotImplementedError((f"Database error while retrieving user: {str(e)}", database_error))
+
+    def check_city(self, user_input):
+        cities = [user.city for user in self.user]
+        words = user_input.split()
+        best_city = None
+        best_score = 0
+        for word in words:
+            match = process.extractOne(word, cities, score_cutoff=75)  # 75% similarity threshold
+            if match and match[1] > best_score:  # Check if this match is the best so far
+                best_city = match[0]
+                best_score = match[1]
+        if best_city:
+            self.user = [user for user in self.user if user.city == best_city]
+            return best_city
+        else:
+            return None
 
     async def send_message(self):
         data = {

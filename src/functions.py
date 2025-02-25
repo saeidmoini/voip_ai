@@ -4,11 +4,26 @@ from src.logger_config import logger, PATH
 from src.report_analysis import Analysis
 import uuid
 
+coldroom_timeout = os.path.join(PATH, "audio", "important_coldroom-timeout")
+
+
+async def app_start(aipaa_bot, hi_text):
+    try:
+        await asyncio.wait_for(aipaa_bot.authenticate(), timeout=10)
+        audio_file = os.path.join(PATH, "audio", f"user_{uuid.uuid4()}")
+        logger.info("Attempting to convert text to speech")
+        #await asyncio.wait_for(aipaa_bot.text_to_speech(hi_text, audio_file), timeout=10)
+        return audio_file
+    except asyncio.TimeoutError:
+        raise NotImplementedError((f"Timeout Error in function", coldroom_timeout))
+    except NotImplementedError as e:
+        message, value = e.args[0]
+        raise NotImplementedError((message, value))
+    except Exception as e:
+        raise NotImplementedError((f"Error occurred in function: {e}", coldroom_timeout))
 
 
 async def transcribe_and_converse(audio_file, report_res, aipaa_bot, aval):
-
-    coldroom_timeout = os.path.join(PATH, "audio", "important_coldroom-timeout")
 
     """Function to run transcription and AI conversation in another process"""
     try:
@@ -20,7 +35,7 @@ async def transcribe_and_converse(audio_file, report_res, aipaa_bot, aval):
         status, ai_answer = await asyncio.wait_for(aval.start_conversation(transcription), timeout=10)
         if status:
             logger.info("Aval ai answer : " + ai_answer)
-            report_result = await asyncio.wait_for(report_res, timeout=40)
+            report_result = await asyncio.wait_for(report_res, timeout=20)
             logger.info(report_result)
             first_key = next(iter(report_result))
             text_data = report_result[first_key]
