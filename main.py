@@ -31,6 +31,7 @@ async def main():
     multi_wellcome = os.path.join(PATH, "audio", "important_multi_wellcome")
     city_found = os.path.join(PATH, "audio", "important_city_found")
     city_lost = os.path.join(PATH, "audio", "important_city_lost")
+    goodby = os.path.join(PATH, "audio", "important_goodby")
 
     try:
         aipaa_bot = Aipaa(Aipaa_API[0], Aipaa_API[1])
@@ -67,7 +68,7 @@ async def main():
                 await asyncio.to_thread(agi.stream_file, wait)
 
                 transcription = "مشهد"
-                # transcription = await asyncio.wait_for(aipaa_bot.speech_to_text(recording_file), timeout=10)
+                #transcription = await asyncio.wait_for(aipaa_bot.speech_to_text(recording_file), timeout=10)
                 logger.info(f'Transcription result: {transcription}')
                 logger.info("Attempting to analyze audio...")
                 city = report.check_city(transcription)
@@ -104,9 +105,9 @@ async def main():
             status, final_answer_file = await transcribe_chat
             if status:
                 await asyncio.to_thread(agi.stream_file, final_answer_file)
-                break
             else:
-                await asyncio.to_thread(agi.stream_file, ask_again)
+                await asyncio.to_thread(agi.stream_file, goodby)
+                break
 
         except NotImplementedError as e:
             message, value = e.args[0]

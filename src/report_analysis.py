@@ -2,6 +2,12 @@ class Analysis:
     def __init__(self, text):
         self.text = text
         self.defrost = False
+        self.lines = self.extract_relevant_lines()
+
+    def extract_relevant_lines(self):
+        """فقط خطوطی که با Vbat=، HUM1=، TEMP1=، Credit=، relays= و inputs= شروع می‌شوند را نگه می‌دارد."""
+        valid_keys = ("Vbat=", "HUM1=", "TEMP1=", "Credit=", "relays=", "inputs=")
+        return [line for line in self.text.splitlines() if line.startswith(valid_keys)]
 
     def Vbat(self):
         for line in self.text.splitlines():

@@ -78,7 +78,7 @@ class Aipaa:
         raise NotImplementedError(("speech-to-text Error accurred", stt_error))
 
     async def text_to_speech(self, text, save_path):
-        payload = {'input_text': text, "sample_rate": 22050, "compress": True, "speed": 1}
+        payload = {'input_text': text, "sample_rate": 22050, "compress": True}
         try:
             async with httpx.AsyncClient() as client:
                 response = await client.post(self.TTS_URL, headers=self.headers, data=payload)
