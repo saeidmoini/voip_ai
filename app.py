@@ -3,7 +3,7 @@ from src.model import User, validate_phone
 
 app = Flask(__name__)
 
-
+print("hi")
 @app.route('/', methods=['Get', 'POST'])
 def index():
     query = request.form.get('query')
