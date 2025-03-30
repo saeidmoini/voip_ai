@@ -2,6 +2,7 @@
 
 
 import os
+import random
 import asyncio
 from src.functions import transcribe_and_converse, app_start
 from src.logger_config import logger, PATH
@@ -15,6 +16,25 @@ from src.openai_module import AvalAiApi
 from src.fake_agi import FakeAGI
 AGI = FakeAGI
 
+async def random_hello(user_name):
+    # پیشوند ثابت
+    prefix = "سلام "
+
+    # لیست کلمات بدون اسم (تکی)
+    prefix_words = ["عزیزدل", "دلبندم", "گلم", "قشنگم", "سرورم", "عزیزم", "نازنینم", "رییس"]
+
+    # لیست پسوندها بدون اسم
+    suffixes = ["بزرگوار", "ارجمند", "عزیز", "نازنین", "دوست داشتنی"]
+
+    # انتخاب رندوم از لیست‌ها
+    use_name = random.choice([True, False])  # تعیین اینکه اسم و پسوند نمایش داده بشه یا فقط کلمه بدون اسم
+    if use_name:
+        suffix = random.choice(suffixes)  # انتخاب پسوند رندوم و اضافه کردن اسم کاربر به آن
+        greeting = f"{prefix} {user_name} {suffix}"
+    else:
+        greeting = f"{prefix} {random.choice(prefix_words)}"
+
+    return greeting
 
 async def main():
     agi = AGI()
@@ -40,7 +60,7 @@ async def main():
         user_info = await asyncio.wait_for(report.init_async(), timeout=5)
         user_list = list(user_info)
         logger.info("Attempting to authenticate with Aipaa bot...")
-        hi_text = " سلام " + user_list[0].name
+        hi_text = await random_hello(user_list[0].name)
 
         start_app = asyncio.create_task(app_start(aipaa_bot, hi_text))
         while not start_app.done():

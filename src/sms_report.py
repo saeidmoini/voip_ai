@@ -21,7 +21,6 @@ class Report:
             self.user = User.select().where(
                 User.telephone.contains(self.phone)
             )
-
             if not self.user.exists():
                 phone_notfound = os.path.join(PATH, "audio", "important_PhoneNotFound")
                 raise AttributeError(f"User with phone {self.phone} not found.", phone_notfound)
@@ -38,6 +37,7 @@ class Report:
 
     def check_city(self, user_input):
         cities = [user.city for user in self.user]
+
         words = user_input.split()
         best_city = None
         best_score = 0
@@ -59,6 +59,7 @@ class Report:
             'text': 'Report لغو11',
             'udh': ''
         }
+        self.start_time = datetime.now()
         SendMessage_error = os.path.join(PATH, "audio", "important_sendmessage_error")
 
         try:
@@ -83,23 +84,20 @@ class Report:
 
     async def get_reports(self):
 
-        for user in self.user:
-            PhonCool = user.coldrooms_phone
-            PhonCool = PhonCool.lstrip("0")
-            self.coldrooms_phone_list.append(PhonCool)
-            await self.send_message()
+        PhonCool = self.user.coldrooms_phone
+        PhonCool = PhonCool.lstrip("0")
+        self.coldrooms_phone_list.append(PhonCool)
+        await self.send_message()
 
         await self.get_messages_loop()
         return self.reports
 
     async def get_messages_loop(self):
-        start_time = datetime.now()
-
         while True:
-            await self.get_messages(start_time)
+            await self.get_messages(self.start_time)
             if len(self.reports) >= len(self.coldrooms_phone_list):
                 return False
-            await asyncio.sleep(1)
+            await asyncio.sleep(3)
 
     async def get_messages(self, start_time):
         """Retrieves incoming messages from Melipayamak API."""
@@ -117,7 +115,7 @@ class Report:
                     response_data = await response.json()
                     for item in response_data.get("messages", []):
                         datetime_object = datetime.strptime(item['sendDate'], "%Y-%m-%dT%H:%M:%S.%f")
-                        if datetime_object > start_time and item['sender'] in self.coldrooms_phone_list:
+                        if datetime_object >= start_time and item['sender'] in self.coldrooms_phone_list:
                             self.reports[item['sender']] = item["body"]
                     return True
 

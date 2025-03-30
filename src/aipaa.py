@@ -1,4 +1,5 @@
 from src.logger_config import logger, PATH
+from src.payment_report import PaymentSms
 import httpx
 import os
 from pydub import AudioSegment
@@ -61,12 +62,14 @@ class Aipaa:
                 files = {'file': (file_path, file_data, "audio/wav")}
                 response = await client.post(url, headers=self.headers, files=files)
 
-                response.raise_for_status()
-
                 if response.status_code == 200:
                     response_data = response.json()
                     transcription = response_data.get('transcripts', ["Aipaa connection refused"])[0]
                     return transcription
+                elif response.status_code == 402:
+                    send_sms = PaymentSms("اعتبار وب سرویس آیپا به پایان رسیده است")
+                    await send_sms.send_reports()
+                    raise Exception(response.text)
                 else:
                     raise Exception(response.text)
         except httpx.HTTPError as e:
@@ -83,8 +86,6 @@ class Aipaa:
             async with httpx.AsyncClient() as client:
                 response = await client.post(self.TTS_URL, headers=self.headers, data=payload)
 
-            response.raise_for_status()
-
             mp3_file = f'{save_path}.mp3'
             wav_file = f'{save_path}.wav'
 
@@ -94,6 +95,10 @@ class Aipaa:
                 if download_result:
                     self.convert_mp3_to_wav(mp3_file, wav_file)
                     return download_result
+            elif response.status_code == 402:
+                send_sms = PaymentSms("اعتبار وب سرویس آیپا به پایان رسیده است")
+                await send_sms.send_reports()
+                raise Exception(response.text)
             else:
                 raise Exception(response.text)
         except httpx.RequestError as e:

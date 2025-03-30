@@ -31,31 +31,30 @@ async def transcribe_and_converse(audio_file, report_res, aipaa_bot, aval):
         #transcription = await asyncio.wait_for(aipaa_bot.speech_to_text(audio_file), timeout=10)
         logger.info(f'Transcription result: {transcription}')
 
-
         report_result = await asyncio.wait_for(report_res, timeout=20)
         first_key = next(iter(report_result))
         text_data = report_result[first_key]
         text_data = """
                 relays=0x003
-        inputs=0x00
-        M=0x5a04
-        ADC1=0.0 v
-        ADC2=0.0 v
-        ADC3=0.0 v
-        ADC4=0.0 v
-        Vdc=11.5 v
-        Vbat=0.0 v
-        HUM=NC
-        TEMP=-16.9
-        HUM1=NC
-        TEMP1=-17.0
-        TEMP2=NC
-        TEMP3=NC
-        TEMP4=NC
-        SIGNAL=28.0
-        Credit=148967.5
-        UPTIME=05:04:55
-        Cloud=0"""
+                inputs=0x00
+                M=0x5a04
+                ADC1=0.0 v
+                ADC2=0.0 v
+                ADC3=0.0 v
+                ADC4=0.0 v
+                Vdc=11.5 v
+                Vbat=0.0 v
+                HUM=NC
+                TEMP=-16.9
+                HUM1=NC
+                TEMP1=-17.0
+                TEMP2=NC
+                TEMP3=NC
+                TEMP4=NC
+                SIGNAL=28.0
+                Credit=148967.5
+                UPTIME=05:04:55
+                Cloud=0"""
         analysis = Analysis(text_data)
 
         logger.info("Attempting to analyze audio...")
