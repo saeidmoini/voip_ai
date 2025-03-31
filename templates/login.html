@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ورود</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/login_style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
+    />
+    <script src="{{ url_for('static', filename='js/jquery.slim.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+  </head>
+
+  <body class="vazir-font">
+    <style>
+      /* General settings */
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* Login container */
+      .login-container {
+        width: 100%;
+        max-width: 400px;
+      }
+
+      /* Login card */
+      .login-card {
+        width: 100%;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+      }
+    </style>
+
+    <div class="container login-container">
+      <div class="row justify-content-center">
+        <div class="card login-card">
+          <div class="card-body">
+            <h2 class="text-center mt-2 flex-wrap">ورود به پنل مدیریت</h2>
+            <form
+              class="form-group p-3 text-right"
+              dir="rtl"
+              method="POST"
+              action="/check_login"
+            >
+              <!-- Username input -->
+              <label for="username" class="text-dark">نام کاربری</label>
+              <input
+                class="form-control mb-3"
+                type="text"
+                id="username"
+                class="form-control"
+                placeholder="نام کاربری خود را وارد کنید"
+                name="username"
+                required
+              />
+
+              <!-- Password input -->
+              <label for="password" class="text-dark">رمز عبور</label>
+              <input
+                class="form-control mb-3"
+                type="password"
+                id="password"
+                class="form-control"
+                placeholder="رمز عبور خود را وارد کنید"
+                name="password"
+                required
+              />
+
+              <!-- Submit button -->
+              <button type="submit" class="btn btn-primary btn-block">
+                ورود
+              </button>
+
+              <!-- Error message -->
+              {% if error %}
+              <div id="error-message" class="text-danger mt-2 text-center">
+                <div
+                  class="alert alert-danger w-100 alert-dismissible fade show"
+                  role="alert"
+                >
+                  <strong>ERROR !</strong> {{ error }}
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="alert"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              </div>
+              {% endif %}
+
+              <!-- flash message -->
+              {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %} {% for category, message in messages %}
+              <div id="flash-message" class="text-danger mt-2 text-center">
+                <div
+                  class="alert alert-{{ category }} w-100 alert-dismissible fade show"
+                  role="alert"
+                >
+                  {{ message }}
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="alert"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              </div>
+              {% endfor %} {% endif %} {% endwith %}
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

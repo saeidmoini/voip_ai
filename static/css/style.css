@@ -1,0 +1,53 @@
+
+@font-face {
+    font-family: 'VazirFont';
+    src: url('../fonts/Vazir.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'VazirFont';
+    src: url('../fonts/Vazir-Bold.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* استایل فونت وزیر */
+.vazir-font{
+    font-family: 'VazirFont', sans-serif;
+}
+
+/* استایل کلی برای body */
+body {
+    direction: rtl;
+    margin: 0;
+    padding: 0;
+}
+
+/* استایل برای پاپ‌آپ */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    z-index: 1000;
+}
+
+/* استایل برای overlay پاپ‌آپ */
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
