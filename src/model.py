@@ -1,6 +1,6 @@
 import re
 from datetime import datetime
-from peewee import Model, CharField
+from peewee import Model, CharField, AutoField
 from playhouse.db_url import connect
 from config import DB_USER, DB_PASS, DB_PORT, DB_DATABASE
 
@@ -16,12 +16,23 @@ class BaseModel(Model):
 
 
 class User(BaseModel):
-    id = None
+    id = AutoField(primary_key=True)
     telephone = CharField(max_length=11)
     name = CharField(max_length=255)
     city = CharField(max_length=255, null=True)
     coldrooms_code = CharField(max_length=255)
     coldrooms_phone = CharField(max_length=255)
+
+
+# تعریف کلاس LoginUser برای احراز هویت کاربران
+class LoginUser(BaseModel):
+    id = AutoField(primary_key=True)
+    username = CharField(max_length=80, unique=True)
+    password = CharField(max_length=120)
+    auth_token = CharField(max_length=120, null=True)  # برای ذخیره توکن احراز هویت
+
+    class Meta:
+        table_name = 'users'
 
 
 with database:
@@ -40,6 +51,5 @@ def validate_phone(value):
     else:
         # شماره نامعتبر است
         return False
-
 
 
