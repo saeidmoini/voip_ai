@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory, Response, flash, \
     make_response
 from src.model import User, validate_phone, LoginUser
-from myhash import generate_password_hash, check_password_hash
 import uuid
 import datetime
 
@@ -114,19 +113,9 @@ def check_login():
     username = request.form['username']
     password = request.form['password']
 
-    try:
-        print(f"Username: {username}, Password: {password}")
-        us = LoginUser.select()
-        for u in us:
-            print(f"User: {u.username}, Password: {u.password}")
+    user = LoginUser.get(LoginUser.username == username)
 
-        user = LoginUser.get(LoginUser.username == username)
-        print(check_password_hash(user.password, password))
-    except LoginUser.DoesNotExist:
-        flash('نام کاربری یا رمز عبور نادرست است', 'danger')
-        return redirect(url_for('login'))
-
-    if check_password_hash(user.password, password):
+    if user.password == password:
         # ایجاد توکن منحصر به فرد
         auth_token = str(uuid.uuid4())
 

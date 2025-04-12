@@ -1,11 +1,15 @@
+
 import bcrypt
 
-# تولید هش رمز عبور
+# Hash a password
 def generate_password_hash(password):
-    salt = bcrypt.gensalt()
-    hashed = bcrypt.hashpw(password.encode('utf-8'), salt)
-    return hashed.decode('utf-8')
+    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 
-# بررسی رمز عبور
-def check_password_hash(hashed_password, input_password):
-    return bcrypt.checkpw(input_password.encode('utf-8'), hashed_password.encode('utf-8'))
+# Check a password
+def check_password(input_password, saved_password):
+    try:
+        return bcrypt.checkpw(input_password.encode('utf-8'), saved_password.encode('utf-8'))
+    except ValueError as e:
+        print("Invalid:", e)
+        return False
+

@@ -31,13 +31,9 @@ class LoginUser(BaseModel):
     password = CharField(max_length=120)
     auth_token = CharField(max_length=120, null=True)  # برای ذخیره توکن احراز هویت
 
-    class Meta:
-        table_name = 'users'
-
 
 with database:
-    database.create_tables([User])
-
+    database.create_tables([User, LoginUser], safe=True)
 
 def validate_phone(value):
     pattern = r"^(?:\+98|0098|98|0)?(9\d{9})$"
