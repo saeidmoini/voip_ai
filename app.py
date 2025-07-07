@@ -1,12 +1,12 @@
-from flask import Flask, render_template, request, redirect, url_for, send_from_directory, Response, flash, \
-    make_response
+from flask import Flask, render_template, request, redirect, url_for, flash, make_response
 from src.model import User, validate_phone, LoginUser
 import uuid
 import datetime
+from peewee import DoesNotExist
+
 
 app = Flask(__name__)
 app.secret_key = '8907654321'
-
 
 @app.route('/', methods=['Get', 'POST'])
 def index():
@@ -96,7 +96,7 @@ def login():
     auth_token = request.cookies.get('auth_token')
 
     if not auth_token:
-        print("User not found 2")
+        print("User not found")
         return render_template('login.html')
 
     try:
@@ -112,8 +112,11 @@ def login():
 def check_login():
     username = request.form['username']
     password = request.form['password']
-
-    user = LoginUser.get(LoginUser.username == username)
+    try:
+        user = LoginUser.get(LoginUser.username == username)
+    except DoesNotExist:
+        flash('Username does not exist', 'danger')
+        return redirect(url_for('login'))
 
     if user.password == password:
         # ایجاد توکن منحصر به فرد
@@ -125,7 +128,7 @@ def check_login():
         # تنظیم کوکی
         resp = make_response(redirect(url_for('index')))
         expires = datetime.datetime.now() + datetime.timedelta(days=100)
-        resp.set_cookie('auth_token', auth_token, expires=expires, httponly=True, secure=True)
+        resp.set_cookie('auth_token', auth_token, expires=expires, httponly=True)
 
         return resp
     else:

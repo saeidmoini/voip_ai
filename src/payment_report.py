@@ -1,5 +1,5 @@
 import aiohttp
-from config import PHONE_MELIPAYAMAK, Melipayamak_API
+from config import PHONE_MELIPAYAMAK, Melipayamak_API, SMS_REPORT
 import json
 import os
 from src.logger_config import logger, PATH
@@ -7,14 +7,13 @@ from src.logger_config import logger, PATH
 
 class PaymentSms:
     def __init__(self, text):
-        self.phone = ['09121370283','09369475363']
         self.text = text
         
 
     async def send_message(self):
         data = {
             'from': PHONE_MELIPAYAMAK,
-            'to': self.phone,
+            'to': SMS_REPORT,
             'text': self.text + ' لغو11',
             'udh': ''
         }

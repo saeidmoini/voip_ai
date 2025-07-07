@@ -44,11 +44,11 @@ class Aipaa:
                 return token
 
         except httpx.HTTPStatusError as e:
-            raise NotImplementedError((f"Aipaa HTTP error during authentication: {e.response.text}", aipaa_error))
+            raise NotImplementedError(f"Aipaa HTTP error during authentication: {e.response.text}", aipaa_error)
         except httpx.RequestError as e:
-            raise NotImplementedError((f"Aipaa Request error during authentication: {e}", aipaa_error))
+            raise NotImplementedError(f"Aipaa Request error during authentication: {e}", aipaa_error)
         except Exception as e:
-            raise NotImplementedError((f"Aipaa Unexpected authentication error: {e}", aipaa_error))
+            raise NotImplementedError(f"Aipaa Unexpected authentication error: {e}", aipaa_error)
 
     async def speech_to_text(self, file_path):
         file_path = f'{file_path}.wav'
@@ -78,7 +78,7 @@ class Aipaa:
             logger.error(f"File {file_path} not found.")
         except Exception as e:
             logger.error(f"Unexpected error in speech-to-text: {e}")
-        raise NotImplementedError(("speech-to-text Error accurred", stt_error))
+        raise NotImplementedError("speech-to-text Error accurred", stt_error)
 
     async def text_to_speech(self, text, save_path):
         payload = {'input_text': text, "sample_rate": 22050, "compress": True}
@@ -105,7 +105,7 @@ class Aipaa:
             logger.error(f"Request error in text-to-speech: {e}")
         except Exception as e:
             logger.error(f"Unexpected error in text-to-speech: {e}")
-        raise NotImplementedError(("text-to-speech Error accurred", tts_error))
+        raise NotImplementedError("text-to-speech Error accurred", tts_error)
 
     async def download_audio(self, file_id, save_path):
         try:

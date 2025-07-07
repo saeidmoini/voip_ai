@@ -1,0 +1,312 @@
+{
+    "cold_storages": {
+      "above_zero": [
+        {
+          "name": "سردخانه 7.5 تنی بالای صفر",
+          "capacity_ton": 7.5,
+          "price_million_toman": [208, 242],
+          "compressor_power_hp": 1.5,
+          "dimensions_m": [5, 3, 2.5],
+          "cost_breakdown": {
+            "equipment": [110, 128],
+            "insulation": [84, 98],
+            "installation": [14, 19]
+          },
+          "storage_capacity": {
+            "fruit": 10,
+            "nuts": 5
+          }
+        },
+        {
+          "name": "سردخانه 10 تنی بالای صفر",
+          "capacity_ton": 10,
+          "price_million_toman": [238, 277],
+          "compressor_power_hp": 2,
+          "dimensions_m": [5, 4, 2.5],
+          "cost_breakdown": {
+            "equipment": [123, 143],
+            "insulation": [101, 118],
+            "installation": [14, 16]
+          },
+          "storage_capacity": {
+            "fruit": 15,
+            "nuts": 7
+          }
+        },
+        {
+          "name": "سردخانه 15 تنی بالای صفر",
+          "capacity_ton": 15,
+          "price_million_toman": [306, 356],
+          "compressor_power_hp": 3,
+          "dimensions_m": [6, 5, 2.5],
+          "cost_breakdown": {
+            "equipment": [157, 183],
+            "insulation": [131, 152],
+            "installation": [18, 21]
+          },
+          "storage_capacity": {
+            "fruit": 25,
+            "dairy": 10,
+            "nuts": 10
+          }
+        },
+        {
+          "name": "سردخانه 20 تنی بالای صفر",
+          "capacity_ton": 20,
+          "price_million_toman": [355, 413],
+          "compressor_power_hp": 4,
+          "dimensions_m": [8, 5, 2.5],
+          "cost_breakdown": {
+            "equipment": [168, 195],
+            "insulation": [166, 193],
+            "installation": [21, 25]
+          },
+          "storage_capacity": {
+            "fruit": 30,
+            "dairy": 20,
+            "nuts": 15
+          }
+        },
+        {
+          "name": "سردخانه 50 تنی بالای صفر",
+          "capacity_ton": 50,
+          "price_million_toman": [560, 651],
+          "compressor_power_hp": 10,
+          "dimensions_m": [10, 8, 3],
+          "cost_breakdown": {
+            "equipment": [307, 357],
+            "insulation": [233, 259],
+            "installation": [30, 35]
+          },
+          "storage_capacity": {
+            "fruit": 40,
+            "dairy": 80,
+            "nuts": 35
+          }
+        },
+        {
+          "name": "سردخانه 80 تنی بالای صفر",
+          "capacity_ton": 80,
+          "price_million_toman": [730, 849],
+          "compressor_power_hp": 15,
+          "dimensions_m": [13, 8.5, 3.5],
+          "cost_breakdown": {
+            "equipment": [374, 435],
+            "insulation": [314, 365],
+            "installation": [42, 49]
+          },
+          "storage_capacity": {
+            "fruit": 80,
+            "dairy": 125,
+            "nuts": 50
+          }
+        },
+        {
+          "name": "سردخانه 100 تنی بالای صفر",
+          "capacity_ton": 100,
+          "price_million_toman": [899, 1044],
+          "compressor_power_hp": 20,
+          "dimensions_m": [15, 10, 4],
+          "cost_breakdown": {
+            "equipment": [450, 523],
+            "insulation": [399, 463],
+            "installation": [50, 58]
+          },
+          "storage_capacity": {
+            "fruit": 100,
+            "dairy": 200,
+            "nuts": 80
+          }
+        },
+        {
+          "name": "سردخانه 200 تنی بالای صفر",
+          "capacity_ton": 200,
+          "price_million_toman": [1508, 1752],
+          "compressor_power_hp": 35,
+          "dimensions_m": [20, 10, 5],
+          "cost_breakdown": {
+            "equipment": [863, 1003],
+            "insulation": [572, 664],
+            "installation": [73, 85]
+          },
+          "storage_capacity": {
+            "fruit": 200,
+            "dairy": 350,
+            "nuts": 150
+          }
+        },
+        {
+          "name": "سردخانه 250 تنی بالای صفر",
+          "capacity_ton": 250,
+          "price_million_toman": [1719, 1998],
+          "compressor_power_hp": 40,
+          "dimensions_m": [20, 12, 5],
+          "cost_breakdown": {
+            "equipment": [1001, 1164],
+            "insulation": [637, 740],
+            "installation": [81, 94]
+          },
+          "storage_capacity": {
+            "fruit": 250,
+            "dairy": 400,
+            "nuts": 170
+          }
+        }
+      ],
+      "below_zero": [
+        {
+          "name": "سردخانه 3 تنی زیر صفر",
+          "capacity_ton": 3,
+          "price_million_toman": [184, 214],
+          "compressor_power_hp": 2,
+          "dimensions_m": [3, 2, 2.5],
+          "cost_breakdown": {
+            "equipment": [124, 144],
+            "insulation": [49, 57],
+            "installation": [11, 12]
+          },
+          "storage_capacity": {
+            "meat": 3,
+            "chicken": 3,
+            "fish": 3
+          }
+        },
+        {
+          "name": "سردخانه 5 تنی زیر صفر",
+          "capacity_ton": 5,
+          "price_million_toman": [216, 250],
+          "compressor_power_hp": 3,
+          "dimensions_m": [3, 3.5, 2.6],
+          "cost_breakdown": {
+            "equipment": [138, 160],
+            "insulation": [64, 74],
+            "installation": [14, 16]
+          },
+          "storage_capacity": {
+            "meat": 5,
+            "chicken": 5,
+            "fish": 5
+          }
+        },
+        {
+          "name": "سردخانه 10 تنی زیر صفر",
+          "capacity_ton": 10,
+          "price_million_toman": [280, 327],
+          "compressor_power_hp": 5.5,
+          "dimensions_m": [5, 3.5, 2.5],
+          "cost_breakdown": {
+            "equipment": [174, 203],
+            "insulation": [90, 105],
+            "installation": [16, 19]
+          },
+          "storage_capacity": {
+            "meat": 10,
+            "chicken": 10,
+            "fish": 10
+          }
+        },
+        {
+          "name": "سردخانه 15 تنی زیر صفر",
+          "capacity_ton": 15,
+          "price_million_toman": [311, 361],
+          "compressor_power_hp": 7.5,
+          "dimensions_m": [6, 4, 2.5],
+          "cost_breakdown": {
+            "equipment": [205, 238],
+            "insulation": [89, 103],
+            "installation": [17, 20]
+          },
+          "storage_capacity": {
+            "meat": 15,
+            "chicken": 15,
+            "fish": 15
+          }
+        },
+        {
+          "name": "سردخانه 25 تنی زیر صفر",
+          "capacity_ton": 25,
+          "price_million_toman": [413, 481],
+          "compressor_power_hp": 10,
+          "dimensions_m": [8, 5, 2.5],
+          "cost_breakdown": {
+            "equipment": [260, 303],
+            "insulation": [130, 151],
+            "installation": [23, 27]
+          },
+          "storage_capacity": {
+            "meat": 25,
+            "chicken": 25,
+            "fish": 25
+          }
+        },
+        {
+          "name": "سردخانه 40 تنی زیر صفر",
+          "capacity_ton": 40,
+          "price_million_toman": [495, 576],
+          "compressor_power_hp": 15,
+          "dimensions_m": [8, 6, 3],
+          "cost_breakdown": {
+            "equipment": [320, 372],
+            "insulation": [147, 171],
+            "installation": [28, 33]
+          },
+          "storage_capacity": {
+            "meat": 40,
+            "chicken": 40,
+            "fish": 40
+          }
+        },
+        {
+          "name": "سردخانه 50 تنی زیر صفر",
+          "capacity_ton": 50,
+          "price_million_toman": [618, 717],
+          "compressor_power_hp": 20,
+          "dimensions_m": [8, 8, 3],
+          "cost_breakdown": {
+            "equipment": [379, 441],
+            "insulation": [223, 259],
+            "installation": [34, 40]
+          },
+          "storage_capacity": {
+            "meat": 50,
+            "chicken": 50,
+            "fish": 50
+          }
+        },
+        {
+          "name": "سردخانه 100 تنی زیر صفر",
+          "capacity_ton": 100,
+          "price_million_toman": [1003, 1167],
+          "compressor_power_hp": 35,
+          "dimensions_m": [10, 8, 5],
+          "cost_breakdown": {
+            "equipment": [644, 749],
+            "insulation": [308, 358],
+            "installation": [51, 60]
+          },
+          "storage_capacity": {
+            "meat": 120,
+            "chicken": 100,
+            "fish": 100
+          }
+        },
+        {
+          "name": "سردخانه 120 تنی زیر صفر",
+          "capacity_ton": 120,
+          "price_million_toman": [1147, 1333],
+          "compressor_power_hp": 40,
+          "dimensions_m": [10, 10, 5],
+          "cost_breakdown": {
+            "equipment": [739, 859],
+            "insulation": [352, 409],
+            "installation": [56, 65]
+          },
+          "storage_capacity": {
+            "meat": 120,
+            "chicken": 120,
+            "fish": 120
+          }
+        }
+      ]
+    }
+  }
