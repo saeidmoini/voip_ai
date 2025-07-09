@@ -110,6 +110,10 @@ async def generate_invoice(
         issue_date = get_shamsi_date()
         delivery_date = get_future_shamsi_date(30)
 
+        # get editable texts 
+        with open(os.path.join(PATH, 'static', 'editable_invoice_data.json'), 'r', encoding='utf-8') as f:
+            editable_texts = json.load(f)
+
         invoice_data = {
             "name": name,
             "phone": phone,
@@ -121,7 +125,9 @@ async def generate_invoice(
             "dimensions": dimensions_str,
             "compressor_power": compressor_power,
             "price": price_formatted,
-            "domain": DOMAIN
+            "domain": DOMAIN,
+            "description_text": editable_texts['description_text'],
+            "product_explain_text": editable_texts['product_explain_text'],
         }
         formatted_to = f"0{phone.lstrip('+')}"
 

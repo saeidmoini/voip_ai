@@ -51,3 +51,42 @@ body {
     background: rgba(0, 0, 0, 0.5);
     z-index: 999;
 }
+
+
+.navbar {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  justify-content: flex-start !important;
+  overflow-x: auto !important; /* فقط زمانی که لازم است اسکرول نمایش داده شود */
+  white-space: nowrap !important; /* جلوگیری از شکسته شدن متن دکمه‌ها */
+}
+
+/* برای دکمه‌ها */
+.navbar .btn {
+  white-space: nowrap !important; /* جلوگیری از شکسته شدن متن دکمه‌ها */
+  margin-right: 10px !important; /* فاصله بین دکمه‌ها */
+}
+
+
+/* تغییر رنگ اسکرول */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 5px;
+}
+
+/* رنگ بخش کشویی */
+::-webkit-scrollbar-thumb {
+  background-color: #4CAF50;
+  border-radius: 10px;
+}
+
+/* رنگ هنگام hover بر روی کشویی */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #6b60ff;
+}
+
+/* رنگ پس‌زمینه اسکرول */
+::-webkit-scrollbar-track {
+  background-color: #f0f0f0;
+  border-radius: 10px;
+}

@@ -13,7 +13,8 @@
             "installation": [14, 19]
           },
           "storage_capacity": {
-            "fruit": 10,
+            "fruit": 7,
+            "dairy": 10,
             "nuts": 5
           }
         },
@@ -29,7 +30,8 @@
             "installation": [14, 16]
           },
           "storage_capacity": {
-            "fruit": 15,
+            "fruit": 10,
+            "dairy": 15,
             "nuts": 7
           }
         },
@@ -45,8 +47,8 @@
             "installation": [18, 21]
           },
           "storage_capacity": {
-            "fruit": 25,
-            "dairy": 10,
+            "fruit": 15,
+            "dairy": 25,
             "nuts": 10
           }
         },
@@ -62,8 +64,8 @@
             "installation": [21, 25]
           },
           "storage_capacity": {
-            "fruit": 30,
-            "dairy": 20,
+            "fruit": 20,
+            "dairy": 30,
             "nuts": 15
           }
         },
@@ -79,7 +81,7 @@
             "installation": [30, 35]
           },
           "storage_capacity": {
-            "fruit": 40,
+            "fruit": 60,
             "dairy": 80,
             "nuts": 35
           }
@@ -285,7 +287,7 @@
             "installation": [51, 60]
           },
           "storage_capacity": {
-            "meat": 120,
+            "meat": 100,
             "chicken": 100,
             "fish": 100
           }
