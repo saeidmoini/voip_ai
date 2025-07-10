@@ -81,7 +81,7 @@ def save_invoice_log(invoice_data: Dict[str, Any]):
 async def generate_invoice(
         name: str,
         phone: str,
-        storage_type: str,
+        storage_type_both: str,
         tonnage: float,
         send_via_sms: bool = True
 ) -> Dict[str, Any]:
@@ -93,19 +93,30 @@ async def generate_invoice(
         if not phone.startswith('+'):
             phone = '+' + phone.lstrip('0')
 
+        if storage_type_both == 'both':
+            storage_type = 'below_zero'
+            storage_type_text = "زیر صفر و بالای صفر"
+        else:
+            storage_type = storage_type_both
+            storage_type_text = "زیر صفر" if storage_type == "below_zero" else "بالای صفر"
+
+
+                        
         invoice_number = generate_invoice_number(phone)
         matched = find_exact_match(storage_type, tonnage)
         details = matched if matched else estimate_price(storage_type, tonnage)
 
         price_avg = round(sum(details['price_million_toman']) / 2, 2)
         price_number = int(price_avg * 1_000_000)
+        if storage_type_both == 'both':
+            price_number = price_number * 1.25
+            
         price_formatted = "{:,}".format(price_number)
 
         tonnage_clean = int(tonnage) if tonnage == int(tonnage) else tonnage
         formatted_dims = [f"{d:.2f}".rstrip("0").rstrip(".") for d in details['dimensions_m']]
         dimensions_str = "×".join(formatted_dims)
         compressor_power = int(details['compressor_power_hp'])
-        storage_type_text = "زیر صفر" if storage_type == "below_zero" else "بالای صفر"
 
         issue_date = get_shamsi_date()
         delivery_date = get_future_shamsi_date(30)

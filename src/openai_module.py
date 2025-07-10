@@ -56,10 +56,11 @@ class AvalAiApi:
                     "مکالمه زیر مربوط به تماس ورودی مشتری با هدف خرید یا مشاوره درباره سردخانه است. لطفاً مکالمه را به شکلی هدایت کن که به‌طور طبیعی اطلاعات زیر را از مشتری بگیری:"
                     "\n  1. نام خانوادگی مشتری (`name = [string]`) \n"
                     "\n 2. ظرفیت سردخانه مورد نیاز مشتری به تن (`tonnage = [number]`) \n"
-                    "\n 3. نوع سردخانه، آیا سردخانه زیر صفر می‌خواهد یا بالای صفر (`storage_type = 'below_zero'` or `'above_zero'`) \n"
+                    "\n 3. نوع سردخانه، آیا سردخانه زیر صفر می‌خواهد یا بالای صفر یا هردو(`storage_type = 'below_zero'` or `'above_zero'` or `'both'`) \n"
+                    "\n * دومنظوره یا دومداره یا دوتکه یا بالای صفر و زیر صفر : اینا همش میشه both * \n"
                     "\n name = [string]   \n"
                     "\n tonnage = [number] \n"
-                    "\n storage_type = [below_zero] or [above_zero] \n"
+                    "\n storage_type = [below_zero] or [above_zero] or [both] \n"
                     "\n تا زمان دریافت هر 3تا پارامتر مکالمه را ادامه بده تا همه اطلاعات جمع‌آوری شود. \n"
                     "\n * اگر هم این 3 تا اطلاعات رو گرفتی با فرمت گفته شده در پاسخ فقط همین 3تارو برگردون  * \n"
                     "\n اطلاعات رو به محض گرفتن با فرمت برگردون و تایید کاربر رو نگیر \n"
@@ -134,7 +135,7 @@ def extract_information(text):
     # Updated regex patterns
     name_pattern = r"name\s*=\s*(.+?)\s*(?:\n|$)"
     tonnage_pattern = r"tonnage\s*=\s*(\d+)"
-    storage_type_pattern = r"storage_type\s*=\s*(below_zero|above_zero)"
+    storage_type_pattern = r"storage_type\s*=\s*(below_zero|above_zero|both)"
 
     # Extracting name
     name_match = re.search(name_pattern, text, re.IGNORECASE)
