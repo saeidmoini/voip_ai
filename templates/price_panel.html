@@ -25,13 +25,24 @@
   <body class="vazir-font">
     <!-- نوار منو -->
     <nav
-      class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top"
+      class="navbar navbar-expand-sm bg-transparent navbar-dark fixed-top"
       dir="rtl">
-    {% if username%}
-      <a class="navbar-brand vazir-font" href="#">نام کاربری : {{ username }}</a>
-      {% endif %}
-      <a class="btn btn-light mr-4 flex-wrap" href="/logout">خروج از حساب</a>
-      <a class="btn btn-light mr-4 flex-wrap" href="/">پنل کاربری</a>
+
+        
+
+      <div class="nav-item dropdown my-auto mr-5" dir="rtl">
+        <a class="nav-link text-dark h2" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            ☰   
+        </a>
+        <div class="dropdown-menu p-2" style="width: 20vw; right: 0%; height: auto;" aria-labelledby="navbarDropdownMenuLink" dir="rtl">
+            {% if username%}
+                <p class="vazir-font text-dark text-wrap text-right h4" href="#">نام کاربری : {{ username }}</p>
+            {% endif %}
+            <a class="btn btn-dark mt-1 text-wrap w-100" href="/logout">خروج از حساب</a>
+            <a class="btn btn-dark mt-1 text-wrap w-100" href="/">پنل کاربری</a>
+            <button class="btn btn-dark mt-1 text-wrap w-100 mb-2" id="chn-price-btn"> تغییر قیمت ها </button>
+        </div>
+      </div>
     </nav>
 
     <!-- نام پنل -->
@@ -40,18 +51,7 @@
     </div>
 
     <!-- لیست سردخانه ها -->
-    <div class="container-fluid mt-3">
-
-      <div class="row w-100 border border-dark p-2 rounded mb-5 mx-auto" dir="rtl">
-        <h5 class="text-dark mt-2 mx-auto"> افزایش قیمت ها</h5>
-        <div class="input-group mb-2" dir="ltr">
-            <input type="number" id="increase_input" class="form-control" placeholder="Enter your increase percentage"  aria-describedby="basic-addon1">
-            <div class="input-group-append">
-                <span class="input-group-text" id="basic-addon1">%</span>
-            </div>
-        </div>
-        <button id="increase_btn" class="btn btn-success w-100 mb-1"> تایید </button>
-      </div>  
+    <div class="container mt-3">
 
       <!-- جدول -->
       {% if price_data %}
@@ -219,8 +219,8 @@
             {% endfor %}
         </div>
 
-      </div>
-      {% else %}
+    </div>
+    {% else %}
 
       <!-- پیغام خالی بودن لیست -->
       <div class="row justify-content-center">
@@ -229,6 +229,21 @@
         </div>
       </div>
       {% endif %}
+    </div>
+
+    <!-- popup برای تغییر قیمت ها -->
+     <div class="popup-overlay" id="popup-overlay"></div>
+
+    <div class="popup p-5 text-center justify-content-center" id="popup">
+        <h5 class="text-dark mt-2 mx-auto"> تغییر قیمت ها</h5>
+        <div class="input-group mb-2" dir="ltr">
+            <input type="number" id="increase_input" class="form-control text-wrap" dir="rtl" style="min-width: 250px;" placeholder="درصد تغییر قیمت ها را وارد کنید ..."  aria-describedby="basic-addon1">
+            <div class="input-group-append">
+                <span class="input-group-text" id="basic-addon1">%</span>
+            </div>
+        </div>
+        <button id="increase_btn" class="btn btn-success w-100 mb-1"> تایید </button>
+        <button class="btn btn-danger w-100 mt-1 mb-1" id="close-popup-btn"> بستن </button>
     </div>
 
     <!-- نمایش پیغام‌ها -->
