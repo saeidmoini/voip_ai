@@ -1,443 +1,449 @@
 <!DOCTYPE html>
 <html dir="rtl" lang="fa">
-<head>
-    <meta charset="UTF-8">
-    <title>پیشنهاد قیمت</title>
-    <style>
-        @font-face {
-            font-family: 'Titr';
-            src: url('http://{{ domain }}/static/fonts/Vazir.woff2') format('truetype');
-        }
+    <head>
+        <meta charset="UTF-8">
+        <title>پیشنهاد قیمت</title>
+        <style>
+            @font-face {
+                font-family: 'Titr';
+                src: url('http://{{ domain }}/static/fonts/Vazir.woff2') format('truetype');
+            }
 
-        body {
-            font-family: 'Titr', Arial, Tahoma, sans-serif;
-            direction: rtl;
-            margin: 0;
-            padding: 0;
-            font-size: 12px;
-        }
+            body {
+                font-family: 'Titr', Arial, Tahoma, sans-serif;
+                direction: rtl;
+                margin: 0;
+                padding: 0;
+                font-size: 12px;
+            }
 
-        .document {
-            width: 700px;
-            margin: 20px auto;
-            border: 2px solid #000;
-            padding: 5px;
-        }
+            .document {
+                width: 700px;
+                margin: 20px auto;
+                border: 2px solid #000;
+                padding: 5px;
+            }
 
-        .header {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 5px;
-        }
+            .header {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                border-bottom: 1px solid #ccc;
+                padding-bottom: 5px;
+            }
 
-        .logo {
-            width: 65px;
-            height: 65px;
-            border: 1px solid #000;
-        }
+            .logo {
+                width: 65px;
+                height: 65px;
+                border: 1px solid #000;
+            }
 
-        .header-right {
-            text-align: right;
-            font-size: 12px;
-        }
+            .header-right {
+                text-align: right;
+                font-size: 12px;
+            }
 
-        .header-center {
-            text-align: center;
-            font-weight: bold;
-        }
+            .header-center {
+                text-align: center;
+                font-weight: bold;
+            }
 
-        .header-center p {
-            margin: 5px 0;
-        }
+            .header-center p {
+                margin: 5px 0;
+            }
 
-        .header-center p:first-child {
-            font-size: 14px;
-        }
+            .header-center p:first-child {
+                font-size: 14px;
+            }
 
-        .header-center p:last-child {
-            font-size: 18px;
-            font-weight: bold;
-        }
+            .header-center p:last-child {
+                font-size: 18px;
+                font-weight: bold;
+            }
 
-        .header-left {
-            text-align: left;
-        }
+            .header-left {
+                text-align: left;
+            }
 
-        .blue-header {
-            background-color: #a6c4e8;
-            padding: 6px;
-            text-align: center;
-            font-weight: bold;
-            margin: 5px 0;
-            border: 1px solid #000;
-            font-size: 13px;
-            line-height: 1.6;
-        }
+            .blue-header {
+                background-color: #a6c4e8;
+                padding: 6px;
+                text-align: center;
+                font-weight: bold;
+                margin: 5px 0;
+                border: 1px solid #000;
+                font-size: 13px;
+                line-height: 1.6;
+            }
 
-        .customer-info {
-            width: 100%;
-            margin: 5px 0;
-        }
+            .customer-info {
+                width: 100%;
+                margin: 5px 0;
+            }
 
-        .customer-info tr td {
-            padding: 4px;
-            text-align: right;
-            border: none;
-            font-size: 12px;
-            vertical-align: top;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: normal;
-        }
+            .customer-info tr td {
+                padding: 4px;
+                text-align: right;
+                border: none;
+                font-size: 12px;
+                vertical-align: top;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: normal;
+            }
 
-        .customer-info td:first-child {
-            width: 15%;
-            font-weight: bold;
-        }
+            .customer-info td:first-child {
+                width: 15%;
+                font-weight: bold;
+            }
 
-        .products-table, .delivery-table, .contact-table, .total-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 5px 0;
-            overflow: hidden;
-        }
+            .products-table, .delivery-table, .contact-table, .total-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 5px 0;
+                overflow: hidden;
+            }
 
-        .products-table th, .products-table td,
-        .delivery-table td, .contact-table td, .total-table td {
-            border: 1px solid #000;
-            padding: 4px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: normal;
-            max-width: 150px;
-        }
+            .products-table th, .products-table td,
+            .delivery-table td, .contact-table td, .total-table td {
+                border: 1px solid #000;
+                padding: 4px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: normal;
+                max-width: 150px;
+            }
 
-        .products-table th {
-            background-color: #f9c89a;
-            text-align: center;
-        }
+            .products-table th {
+                background-color: #f9c89a;
+                text-align: center;
+            }
 
-        .products-table th:first-child {
-            width: 5%;
-        }
+            .products-table th:first-child {
+                width: 5%;
+            }
 
-        .products-table th:nth-child(2) {
-            width: 65%;
-        }
+            .products-table th:nth-child(2) {
+                width: 65%;
+            }
 
-        .products-table td:nth-child(3),
-        .products-table td:nth-child(4),
-        .products-table td:nth-child(5) {
-            text-align: center;
-        }
+            .products-table td:nth-child(3),
+            .products-table td:nth-child(4),
+            .products-table td:nth-child(5) {
+                text-align: center;
+            }
 
-        /* Special layout for total section */
-        .total-section {
-            display: flex;
-            margin: 5px 0;
-            flex-direction: row; /* Changed to row */
-        }
+            /* Special layout for total section */
+            .total-section {
+                display: flex;
+                margin: 5px 0;
+                flex-direction: row; /* Changed to row */
+            }
 
-        .total-left {
-            width: 35%; /* Adjusted width */
-            background-color: #a6c4e8;
-            border: 1px solid #000;
-            padding: 8px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
+            .total-left {
+                width: 35%; /* Adjusted width */
+                background-color: #a6c4e8;
+                border: 1px solid #000;
+                padding: 8px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
 
-        .total-right {
-            width: 65%; /* Adjusted width */
-        }
+            .total-right {
+                width: 65%; /* Adjusted width */
+            }
 
-        .total-table td:first-child {
-            text-align: left;
-            width: 50%;
-        }
+            .total-table td:first-child {
+                text-align: left;
+                width: 50%;
+            }
 
-        .total-table td:last-child {
-            text-align: center;
-        }
+            .total-table td:last-child {
+                text-align: center;
+            }
 
-        .company-name {
-            text-align: center;
-            font-weight: bold;
-            margin-top: 5px;
-        }
+            .company-name {
+                text-align: center;
+                font-weight: bold;
+                margin-top: 5px;
+            }
 
-        .delivery-info-section {
-            display: flex;
-            margin: 5px 0;
-        }
+            .delivery-info-section {
+                display: flex;
+                margin: 5px 0;
+            }
 
-        .delivery-info-wrapper { /* New wrapper for the two tables */
-            width: 40%;
-        }
+            .delivery-info-wrapper { /* New wrapper for the two tables */
+                width: 40%;
+            }
 
-        .delivery-table {
-            width: 100%; /* Take the full width of the wrapper */
-            border-collapse: collapse;
-            margin-bottom: 5px; /* Add spacing between the tables */
-        }
+            .delivery-table {
+                width: 100%; /* Take the full width of the wrapper */
+                border-collapse: collapse;
+                margin-bottom: 5px; /* Add spacing between the tables */
+            }
 
-        .delivery-table td {
-            border: 1px solid #000;
-            padding: 4px;
-            vertical-align: top;
-        }
+            .delivery-table td {
+                border: 1px solid #000;
+                padding: 4px;
+                vertical-align: top;
+            }
 
-        .delivery-table td:first-child {
-            width: 25%;
-            font-weight: bold;
-        }
+            .delivery-table td:first-child {
+                width: 25%;
+                font-weight: bold;
+            }
 
-        .contact-table {
-            width: 100%; /* Same width as delivery table */
-            border-collapse: collapse;
-        }
+            .contact-table {
+                width: 100%; /* Same width as delivery table */
+                border-collapse: collapse;
+            }
 
-        .contact-table td {
-            border: 1px solid #000;
-            padding: 4px;
-            vertical-align: top;
-        }
+            .contact-table td {
+                border: 1px solid #000;
+                padding: 4px;
+                vertical-align: top;
+            }
 
-        .contact-table td:first-child {
-            width: 30%;
-            font-weight: bold;
-        }
+            .contact-table td:first-child {
+                width: 30%;
+                font-weight: bold;
+            }
 
-        .phone-numbers {
-            text-align: right;
-            line-height: 1.5;
-        }
+            .phone-numbers {
+                text-align: right;
+                line-height: 1.5;
+            }
 
-        .description-box {
-            width: 58%; /* Increased Width */
-            background-color: #a6c4e8;
-            border: 1px solid #000;
-            padding: 8px;
-            box-sizing: border-box;
-            margin-right: 2%; /* Create some space between the table and the box */
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: normal;
-        }
+            .description-box {
+                width: 58%; /* Increased Width */
+                background-color: #a6c4e8;
+                border: 1px solid #000;
+                padding: 8px;
+                box-sizing: border-box;
+                margin-right: 2%; /* Create some space between the table and the box */
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: normal;
+            }
 
-        .description-title {
-            font-weight: bold;
-            margin-top: 0;
-            margin-bottom: 5px;
-            text-align: center;
-        }
+            .description-title {
+                font-weight: bold;
+                margin-top: 0;
+                margin-bottom: 5px;
+                text-align: center;
+            }
 
-        .description-text {
-            margin-top: 0;
-            margin-bottom: 0;
-            text-align: justify;
-            line-height: 1.5;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: normal;
-        }
+            .description-text {
+                margin-top: 0;
+                margin-bottom: 0;
+                text-align: justify;
+                line-height: 1.5;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: normal;
+            }
 
-        .signature-area {
-            display: flex;
-            border: 1px solid #000;
-            height: 90px;
-            margin: 5px 0;
-        }
+            .signature-area {
+                display: flex;
+                border: 1px solid #000;
+                height: 90px;
+                margin: 5px 0;
+            }
 
-        .signature-box {
-            width: 50%;
-            text-align: center;
-            padding-top: 10px;
-            font-weight: bold;
-        }
+            .signature-box {
+                width: 50%;
+                text-align: center;
+                padding-top: 10px;
+                font-weight: bold;
+            }
 
-        .signature-box:first-child {
-            border-left: 1px solid #000;
-        }
+            .signature-box:first-child {
+                border-left: 1px solid #000;
+            }
 
-        .signature-image {
-            margin-top: 10px;
-            width: 140px;
-        }
+            .signature-image {
+                margin-top: 10px;
+                width: 140px;
+            }
 
-        .page-number {
-            text-align: center;
-            margin-top: 10px;
-            font-size: 10px;
-            font-weight: bold;
-        }
-    </style>
-</head>
-<body>
-<div class="document">
-    <!-- Header -->
-    <div class="header">
-        <!-- Right section -->
-        <div class="header-right">
-            <p>شماره سریال: {{ invoice_number }}</p>
-            <p>تاریخ صدور: {{ issue_date }}</p>
-            <p>صفحه: 1</p>
-        </div>
+            .page-number {
+                text-align: center;
+                margin-top: 10px;
+                font-size: 10px;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <div class="document">
+            <!-- Header -->
+            <div class="header">
+                <!-- Right section -->
+                <div class="header-right">
+                    <p>شماره سریال: {{ invoice_number }}</p>
+                    <p>تاریخ صدور: {{ issue_date }}</p>
+                    <p>صفحه: 1</p>
+                </div>
 
-        <!-- Center section -->
-        <div class="header-center">
-            <p>بسمه تعالی</p>
-            <p>پیشنهاد قیمت</p>
-        </div>
+                <!-- Center section -->
+                <div class="header-center">
+                    <p>بسمه تعالی</p>
+                    <p>پیشنهاد قیمت</p>
+                </div>
 
-        <!-- Left section (logo) -->
-        <div class="header-left">
-            <img src="http://{{ domain }}/static/logo.png" alt="Logo" class="logo">
-        </div>
-    </div>
+                <!-- Left section (logo) -->
+                <div class="header-left">
+                    <img src="http://{{ domain }}/static/logo.png" alt="Logo" class="logo">
+                </div>
+            </div>
 
-    <!-- Main Title -->
-    <div class="blue-header">
-        اولین و تنها مخترع و سازنده سردخانه های هوشمند سخنگو به زبان فارسی در ایران و جهان<br>
-        اولین و تنها مخترع دستگاه مولد برق سردخانه بدون نیاز به هیچگونه سوخت و بدون نیاز به برق شبکه
-    </div>
+            <!-- Main Title -->
+            <div class="blue-header">
+                اولین و تنها مخترع و سازنده سردخانه های هوشمند سخنگو به زبان فارسی در ایران و جهان<br>
+                اولین و تنها مخترع دستگاه مولد برق سردخانه بدون نیاز به هیچگونه سوخت و بدون نیاز به برق شبکه
+            </div>
 
-    <!-- Customer Name - No borders between rows -->
-    <table class="customer-info">
-        <tr>
-            <td>نام خریدار:</td>
-            <td>{{ name }}</td>
-        </tr>
-        <tr>
-            <td>شماره تماس:</td>
-            <td>{{ phone }}</td>
-        </tr>
-    </table>
+            <!-- Customer Name - No borders between rows -->
+            <table class="customer-info">
+                <tr>
+                    <td>نام خریدار:</td>
+                    <td>{{ name }}</td>
+                </tr>
+                <tr>
+                    <td>شماره تماس:</td>
+                    <td>{{ phone }}</td>
+                </tr>
+            </table>
 
-    <!-- Products Table -->
-    <table class="products-table">
-        <thead>
-        <tr>
-            <th colspan="5" style="text-align: center;">مشخصات کالا و خدمات</th>
-        </tr>
-        <tr>
-            <th style="text-align: center;">ردیف</th>
-            <th style="text-align: center;">شرح کالا / خدمات</th>
-            <th style="text-align: center;">تعداد</th>
-            <th style="text-align: center;">مبلغ واحد (ریال)</th>
-            <th style="text-align: center;">مبلغ کل (ریال)</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td style="text-align: center;">1</td>
-            <td>
-                تجهیزات کامل سردخانه به گنجایش حدود {{ tonnage }} تن به ابعاد حدود {{ dimensions }} با کمپرسور بیتزر آلمانی
-                {{ compressor_power }} اسب با شناسنامه اصالت کالا و اواپراتور ۲۵ اسب صادراتی با فن های دانلی و لوله و اتصالات مسی فشار قوی و
-                ساندویچ پانل دو رو ورق - زنگ نزن با رنگکوره ای با دانسیته ٤٠ و مواد بایرن آلمان جهت ایجاد ضریب عایق هر چه
-                بالاتر و نبشی و لوازم و چسب و فوم بمقدار کافی و تابلو برق دیجیتال هوشمند سخنگو با گویش فارسی در خصوص
-                انتقال هر گونه اطلاعات از قبیل دما و رطوبت و قطعی برق و باز ماندن درب سردخانه یا دو فازدن برق و فشار به کمپرسور
-                یا جریان کشی و بالا رفتن دمای محیط کمپرسور و یا در اختیار گذاشتن اطلاعات بروز نگهداری انواع محصولاتی که
-                میتوان در سردخانه نگهداری نمود و بالا بردن اطلاعات کاربراان سردخانه و هشدارهای احتمالی و خطرات پیش آمده
-            </td>
-            <td style="text-align: center;">1</td>
-            <td style="text-align: center;">{{ price }}</td>
-            <td style="text-align: center;">{{ price }}</td>
-        </tr>
-        </tbody>
-    </table>
+            <!-- Products Table -->
+            <table class="products-table">
+                <thead>
+                <tr>
+                    <th colspan="5" style="text-align: center;">مشخصات کالا و خدمات</th>
+                </tr>
+                <tr>
+                    <th style="text-align: center;">ردیف</th>
+                    <th style="text-align: center;">شرح کالا / خدمات</th>
+                    <th style="text-align: center;">تعداد</th>
+                    <th style="text-align: center;">مبلغ واحد (ریال)</th>
+                    <th style="text-align: center;">مبلغ کل (ریال)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="text-align: center;">1</td>
+                    <td>
+                        تجهیزات سردخانه به  گنجایش حدود {{ tonnage }} تن به ابعاد حدود {{ dimensions }} با کمپرسور بیتزر {{ compressor_power }} اسب میباشد.
+                        <br />
+                        {{ product_explain_text }}
 
-    <!-- Special layout for totals and company info -->
-    <div class="total-section">
-        <!-- Company info on left  -->
-        <div class="total-left">
-            <img src="http://{{ domain }}/static/logo.png" alt="Logo" width="65" height="65">
-            <div class="company-name">
-                شرکت مهندسی بنا فرآیند<br>
-                (سهامی خاص)
+
+                    </td>
+                    <td style="text-align: center;">1</td>
+                    <td style="text-align: center;">{{ price }}</td>
+                    <td style="text-align: center;">{{ price }}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <!-- Special layout for totals and company info -->
+            <div class="total-section">
+                <!-- Company info on left  -->
+                <div class="total-left">
+                    <img src="http://{{ domain }}/static/logo.png" alt="Logo" width="65" height="65">
+                    <div class="company-name">
+                        شرکت مهندسی بنا فرآیند<br>
+                        (سهامی خاص)
+                    </div>
+                </div>
+
+                <!-- Totals table on right -->
+                <div class="total-right">
+                    <table class="total-table">
+                        <tr>
+                            <td>جمع کل به ریال:</td>
+                            <td>{{ price }}</td>
+                        </tr>
+                        <tr>
+                            <td>تخفیف:</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>مالیات بر ارزش افزوده:</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>مبلغ قابل پرداخت (ریال):</td>
+                            <td>{{ price }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Delivery info and description box -->
+            <div class="delivery-info-section">
+                <div class="delivery-info-wrapper">
+                    <!-- Delivery table on left -->
+                    <table class="delivery-table">
+                        <tr>
+                            <td>زمان تحویل:</td>
+                            <td>{{ due_date }}</td>
+                        </tr>
+                        <tr>
+                            <td>محل تحویل:</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>صادر کننده:</td>
+                            <td>شرکت مهندسی بنا فرآیند</td>
+                        </tr>
+                    </table>
+
+                    <!-- Contact Info -->
+                    <table class="contact-table">
+                        <tr>
+                            <td>تلفن: جهت هماهنگی و اطلاعات بیشتر</td>
+                            <td class="phone-numbers">
+                                09121370283<br>
+                                09121833093<br>
+                                09121972409<br>
+                                09127361959
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>ID اینستا گرام</td>
+                            <td style="margin:auto">
+                                bana_farayand
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- Description box on right -->
+                <div class="description-box">
+                    <p class="description-title">توضیحات</p>
+                    <p class="description-text">
+                        {{ description_text }}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Signature Area -->
+            <div class="signature-area">
+                <div class="signature-box">امضای مشتری</div>
+                <div class="signature-box">مهر و امضای فروشنده<br>
+                    <img src="http://{{ domain }}/static/sign.png" alt="Signature" class="signature-image">
+                </div>
+            </div>
+
+            <!-- Page Number -->
+            <div class="page-number">
+                نازنین شکارچی 778055002068000677670001
             </div>
         </div>
-
-        <!-- Totals table on right -->
-        <div class="total-right">
-            <table class="total-table">
-                <tr>
-                    <td>جمع کل به ریال:</td>
-                    <td>{{ price }}</td>
-                </tr>
-                <tr>
-                    <td>تخفیف:</td>
-                    <td>0</td>
-                </tr>
-                <tr>
-                    <td>مالیات بر ارزش افزوده:</td>
-                    <td>0</td>
-                </tr>
-                <tr>
-                    <td>مبلغ قابل پرداخت (ریال):</td>
-                    <td>{{ price }}</td>
-                </tr>
-            </table>
-        </div>
-    </div>
-
-    <!-- Delivery info and description box -->
-    <div class="delivery-info-section">
-        <div class="delivery-info-wrapper">
-            <!-- Delivery table on left -->
-            <table class="delivery-table">
-                <tr>
-                    <td>زمان تحویل:</td>
-                    <td>{{ due_date }}</td>
-                </tr>
-                <tr>
-                    <td>محل تحویل:</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>صادر کننده:</td>
-                    <td>شرکت مهندسی بنا فرآیند</td>
-                </tr>
-            </table>
-
-            <!-- Contact Info -->
-            <table class="contact-table">
-                <tr>
-                    <td>تلفن: جهت هماهنگی و اطلاعات بیشتر</td>
-                    <td class="phone-numbers">
-                        09121376383<br>
-                        09121842313<br>
-                        09121947209<br>
-                        09127735194
-                    </td>
-                </tr>
-            </table>
-        </div>
-
-        <!-- Description box on right -->
-        <div class="description-box">
-            <p class="description-title">توضیحات</p>
-            <p class="description-text">
-                شایان ذکر است که سیستم هوشمند بطور رایگان احتساب گردیده و اعتبار این فاکتور 3 روز میباشد در ضمن سیستمهای لوله کشی کمپرسور و اوپراتور و کندانسور و تابلو برق دارای 2 سال گارانتی و پشتیبانی مادام‌العمر است.
-            </p>
-        </div>
-    </div>
-
-    <!-- Signature Area -->
-    <div class="signature-area">
-        <div class="signature-box">امضای مشتری</div>
-        <div class="signature-box">مهر و امضای فروشنده<br>
-            <img src="http://{{ domain }}/static/sign.png" alt="Signature" class="signature-image">
-        </div>
-    </div>
-
-    <!-- Page Number -->
-    <div class="page-number">
-        نازنین شکارچی 778055002068000677670001
-    </div>
-</div>
-</body>
+    </body>
 </html>

@@ -1,8 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, make_response
+from flask import Flask, render_template, request, redirect, url_for, flash, make_response, Response, jsonify
 from src.model import User, validate_phone, LoginUser
 import uuid
 import datetime
 from peewee import DoesNotExist
+import json
+from app.pricing import increase_all_prices
 
 
 app = Flask(__name__)
@@ -24,6 +26,101 @@ def index():
         return redirect(url_for('login'))
 
     return render_template('index.html', username=login_user.username, users=users)
+
+@app.route('/price-panel', methods=['Get', 'POST'])
+def price_panel_page():
+    users = User.select()
+    auth_token = request.cookies.get('auth_token')
+
+    if not auth_token:
+        flash('لطفاً ابتدا وارد شوید', 'warning')
+        return redirect(url_for('login'))
+
+    try:
+        login_user = LoginUser.get(LoginUser.auth_token == auth_token)
+    except LoginUser.DoesNotExist:
+        flash('لطفاً ابتدا وارد شوید', 'warning')
+        return redirect(url_for('login'))
+
+    with open("static/Pricing.json", "r") as f:
+        price_data = json.load(f)
+
+    return render_template('price_panel.html', username=login_user.username, price_data=price_data)
+
+@app.route('/api/increase-prices', methods=['POST'])
+def increase_price_api():
+    users = User.select()
+    auth_token = request.cookies.get('auth_token')
+
+    if not auth_token:
+        return Response("login requered to use this api"), 401
+
+    try:
+        login_user = LoginUser.get(LoginUser.auth_token == auth_token)
+    except LoginUser.DoesNotExist:
+        return Response("login requered to use this api"), 401
+
+    try:
+        increase_value = float(request.args.get('increase_value'))
+    except Exception as e:
+        return Response("Error in increase prices"), 500
+
+    try:
+        if increase_value :
+            increase_all_prices(percentage_increase=increase_value)
+            return Response("prices increased successful"), 200
+        else:
+            return Response("increase_value requered to use this api"), 400
+    except Exception as e:
+        return Response("Error in increase prices"), 500
+
+@app.route('/api/get-prd-explain-text', methods=['GET'])
+def get_prd_explain_text():
+    try:
+        with open("static/editable_invoice_data.json", "r") as f:
+            data = json.load(f)
+        
+        return jsonify({"text": data["product_explain_text"]})
+    except Exception as e:
+        return Response("Error in get prd explain text"), 500
+
+@app.route('/api/get-description-text', methods=['GET'])
+def get_description_text():
+    try:
+        with open("static/editable_invoice_data.json", "r") as f:
+            data = json.load(f)
+
+        return jsonify({"text": data["description_text"]})
+    except Exception as e:
+        return Response("Error in get description text"), 500
+
+@app.route('/api/set-prd-explain-text', methods=['POST'])
+def set_prd_explain_text():
+    try:
+        data = request.get_json()
+        with open("static/editable_invoice_data.json", "r") as f:
+            existing_data = json.load(f)
+            existing_data["product_explain_text"] = data["text"]
+        with open("static/editable_invoice_data.json", "w") as f:
+                json.dump(existing_data, f)
+        return Response("Text updated successfully"), 200
+    except Exception as e:
+        return Response("Error in set prd explain text"), 500
+    
+@app.route('/api/set-description-text', methods=['POST'])
+def set_description_text():
+    try:
+        data = request.get_json()
+        with open("static/editable_invoice_data.json", "r") as f:
+            existing_data = json.load(f)
+            existing_data["description_text"] = data["text"]
+        with open("static/editable_invoice_data.json", "w") as f:
+                json.dump(existing_data, f)
+        
+        return Response("Text updated successfully"), 200
+    except Exception as e:
+        return Response("Error in set description text"), 500
+
 
 
 # مسیر حذف کاربر
