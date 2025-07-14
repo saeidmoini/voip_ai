@@ -52,7 +52,19 @@ def price_panel_page():
         with open("static/Pricing.json", "r") as f:
             price_data = json.load(f)
 
-        return render_template('price_panel.html', username=login_user.username, price_data=price_data)
+        # محاسبه تغییرات قیمت ها
+        chn_price = None
+        try: 
+            with open("static/pricing_back.json", "r") as f:
+                price_back_data = json.load(f)
+
+            chn_price = int( price_data["cold_storages"]["above_zero"][0]["cost_breakdown"]["equipment"][0] / price_back_data["cold_storages"]["above_zero"][0]["cost_breakdown"]["equipment"][0] * 100 ) - 100
+            chn_price = f"قیمت ها {abs(chn_price)}% {"افزایش" if chn_price > 0 else "کاهش"} یافته است." if chn_price != 0 else "قیمت ها تغییر نکرده است."
+        except:
+            chn_price = "خطا در محاسبه تغییرات قیمت ها"
+
+
+        return render_template('price_panel.html', username=login_user.username, price_data=price_data, chn_price=chn_price)
     
     except Exception as e:
         logger.error(f"ERROR in opening price_panel page - ERROR : {e}")
