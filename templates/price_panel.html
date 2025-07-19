@@ -16,6 +16,10 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/toastify.min.css') }}"
     />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/navStyle.css') }}"
+    />
     <script src="{{ url_for('static', filename='js/toastify-js.js') }}"></script>
     <script src="{{ url_for('static', filename='js/jquery.slim.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
@@ -34,13 +38,15 @@
         <a class="nav-link text-dark h2" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             ☰   
         </a>
-        <div class="dropdown-menu p-2" style="width: 20vw; right: 0%; height: auto;" aria-labelledby="navbarDropdownMenuLink" dir="rtl">
+        <div class="dropdown-menu p-2" style="width: 50vw; right: 0%; height: auto; max-width: 300px;" aria-labelledby="navbarDropdownMenuLink" dir="rtl">
             {% if username%}
                 <p class="vazir-font text-dark text-wrap text-right h4" href="#">نام کاربری : {{ username }}</p>
             {% endif %}
-            <a class="btn btn-dark mt-1 text-wrap w-100" href="/logout">خروج از حساب</a>
-            <a class="btn btn-dark mt-1 text-wrap w-100" href="/">پنل کاربری</a>
-            <button class="btn btn-dark mt-1 text-wrap w-100 mb-2" id="chn-price-btn"> تغییر قیمت ها </button>
+
+            <a class="btn btn-dark mt-1 text-wrap nav-btn" href="/logout">خروج از حساب</a>
+            <a class="btn btn-dark mt-1 text-wrap nav-btn" href="/">پنل کاربری</a>
+            <button class="btn btn-dark text-wrap mt-1 w-100 nav-btn" id="open-discription">تغییر متن توضیحات در پیش فاکتور</button>
+            <button class="btn btn-dark text-wrap mt-1 w-100 mb-2 nav-btn" id="open-explain">تغییر متن شرح کالا در پیش فاکتور</button>
         </div>
       </div>
     </nav>
@@ -67,6 +73,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <button class="btn btn-success mt-1 text-wrap w-100 mb-2" id="chn-price-btn">تغییر قیمت ها</button>
     </div>
     {% endif %}
 
@@ -76,170 +83,110 @@
       <!-- جدول -->
       {% if price_data %}
         <div class="row justify-content-center">
+
             {% for azd in price_data["cold_storages"]["above_zero"] %}
-                <div class="col-md-4 col-sm-6 mb-4" role="group" aria-label="{{ loop.index }} / {{ price_data['cold_storages']['above_zero']|length }}" style="min-width: 300px;">
-                    <div class="card text-white bg-primary h-100">
-                        <div class="card-body p-3">
-                            <h5 class="card-title text-center">{{ azd.name }}</h5>
-                            <p class="card-text text-center">قیمت کلی {{ azd.price_million_toman[0] }} تا {{ azd.price_million_toman[1] }} میلیون تومان</p>
-                            <table class="table table-sm table-bordered text-center text-white">
-                                <tbody class="text-wrap">
-                                    <tr>
-                                        <th colspan="2">توان کمپرسور</th>
-                                        <td colspan="2">{{ azd.compressor_power_hp }} اسب بخار</td>
-                                    </tr>
+            <div class="col-12 col-lg-6 mb-4">
+                <div class="card text-white bg-primary h-100">
+                    <div class="card-body p-3">
+                    <h5 class="card-title text-center">{{ azd.name }}</h5>
+                    <p class="card-text text-center">قیمت کلی {{ azd.price_million_toman[0] }} تا {{ azd.price_million_toman[1] }} میلیون تومان</p>
 
-                                    <tr>
-                                        <th colspan="4">ابعاد پیشنهادی (متر)</th>
-                                    </tr>
-                                    
-                                    <tr>
-                                        <th colspan="2">طول</th>
-                                        <td colspan="2">{{ azd.dimensions_m[0] }}</td>
-                                    </tr>
+                    <table class="table table-sm table-bordered text-center text-white">
+                        <tbody class="text-wrap">
+                            <tr>
+                            <th colspan="2">توان کمپرسور</th>
+                            <td colspan="2">{{ azd.compressor_power_hp }} اسب بخار</td>
+                            </tr>
+                            <tr><th colspan="4">ابعاد پیشنهادی (متر)</th></tr>
+                            <tr><th colspan="2">طول</th><td colspan="2">{{ azd.dimensions_m[0] }}</td></tr>
+                            <tr><th colspan="2">عرض</th><td colspan="2">{{ azd.dimensions_m[1] }}</td></tr>
+                            <tr><th colspan="2">ارتفاع</th><td colspan="2">{{ azd.dimensions_m[2] }}</td></tr>
+                            <tr><th colspan="4">هزینه‌های سردخانه (میلیون تومان)</th></tr>
+                            <tr><th colspan="2">تجهیزات</th><td colspan="2">{{ azd.cost_breakdown.equipment[0] }} تا {{ azd.cost_breakdown.equipment[1] }}</td></tr>
+                            <tr><th colspan="2">عایق‌کاری</th><td colspan="2">{{ azd.cost_breakdown.insulation[0] }} تا {{ azd.cost_breakdown.insulation[1] }}</td></tr>
+                            <tr><th colspan="2">اجرت نصب</th><td colspan="2">{{ azd.cost_breakdown.installation[0] }} تا {{ azd.cost_breakdown.installation[1] }}</td></tr>
+                            <tr class="text-center">
+                            <td>
+                                <a href="https://www.damoon-co.com/wp-content/uploads/fruits-coldroom-price-icon-7.svg" target="_blank" rel="noopener noreferrer">
+                                <img src="https://www.damoon-co.com/wp-content/uploads/fruits-coldroom-price-icon-7.svg" alt="میوه" class="img-fluid" style="max-height: 80px;">
+                                </a>
+                            </td>
+                            <td colspan="2">
+                                <a href="https://www.damoon-co.com/wp-content/uploads/dairy-coldroom-price-icon-7.svg" target="_blank" rel="noopener noreferrer">
+                                <img src="https://www.damoon-co.com/wp-content/uploads/dairy-coldroom-price-icon-7.svg" alt="لبنیات" class="img-fluid" style="max-height: 80px;">
+                                </a>
+                            </td>
+                            <td>
+                                <a href="https://www.damoon-co.com/wp-content/uploads/nuts-coldroom-price-icon-7.svg" target="_blank" rel="noopener noreferrer">
+                                <img src="https://www.damoon-co.com/wp-content/uploads/nuts-coldroom-price-icon-7.svg" alt="خشکبار" class="img-fluid" style="max-height: 80px;">
+                                </a>
+                            </td>
+                            </tr>
+                            <tr>
+                            <td>{{ azd.storage_capacity.fruit | default('—') }} تن میوه</td>
+                            <td colspan="2">{{ azd.storage_capacity.dairy | default('—') }} تن لبنیات</td>
+                            <td>{{ azd.storage_capacity.nuts | default('—') }} تن خشکبار</td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                                    <tr>
-                                        <th colspan="2">عرض</th>
-                                        <td colspan="2">{{ azd.dimensions_m[1] }}</td>
-                                    </tr>
-
-                                    <tr>
-                                        <th colspan="2">ارتفاع</th>
-                                        <td colspan="2">{{ azd.dimensions_m[2] }}</td>
-                                    </tr>
-
-                                    <tr>
-                                        <th colspan="4">هزینه‌های سردخانه (میلیون تومان)</th>
-                                    </tr>
-
-                                    <tr>
-                                        <th colspan="2">تجهیزات</th>
-                                        <td colspan="2">{{ azd.cost_breakdown.equipment[0] }} تا {{ azd.cost_breakdown.equipment[1] }}</td>
-                                    </tr>
-
-                                    <tr>
-                                        <th colspan="2">عایق‌کاری</th>
-                                        <td colspan="2">{{ azd.cost_breakdown.insulation[0] }} تا {{ azd.cost_breakdown.insulation[1] }}</td>
-                                    </tr>
-
-                                    <tr>
-                                        <th colspan="2">اجرت نصب</th>
-                                        <td colspan="2">{{ azd.cost_breakdown.installation[0] }} تا {{ azd.cost_breakdown.installation[1] }}</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="align-middle">
-                                            <a href="https://www.damoon-co.com/wp-content/uploads/fruits-coldroom-price-icon-7.svg" target="_blank" rel="noopener noreferrer">
-                                            <img src="https://www.damoon-co.com/wp-content/uploads/fruits-coldroom-price-icon-7.svg" alt="میوه" class="img-fluid" style="max-height: 80px;">
-                                            </a>
-                                        </td>
-                                        <td class="align-middle" colspan="2">
-                                            <a href="https://www.damoon-co.com/wp-content/uploads/dairy-coldroom-price-icon-7.svg" target="_blank" rel="noopener noreferrer">
-                                            <img src="https://www.damoon-co.com/wp-content/uploads/dairy-coldroom-price-icon-7.svg" alt="لبنیات" class="img-fluid" style="max-height: 80px;">
-                                            </a>
-                                        </td>
-                                        <td class="align-middle">
-                                            <a href="https://www.damoon-co.com/wp-content/uploads/nuts-coldroom-price-icon-7.svg" target="_blank" rel="noopener noreferrer">
-                                            <img src="https://www.damoon-co.com/wp-content/uploads/nuts-coldroom-price-icon-7.svg" alt="خشکبار" class="img-fluid" style="max-height: 80px;">
-                                            </a>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>{{ azd.storage_capacity.fruit | default('—') }} تن میوه</td>
-                                        <td colspan="2">{{ azd.storage_capacity.dairy | default('—') }} تن لبنیات</td>
-                                        <td>{{ azd.storage_capacity.nuts | default('—') }} تن خشکبار</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
                     </div>
                 </div>
+            </div>
             {% endfor %}
 
             {% for bzd in price_data["cold_storages"]["below_zero"] %}
-                <div class="col-md-4 col-sm-6 mb-4" role="group" aria-label="{{ loop.index }} / {{ price_data['cold_storages']['below_zero']|length }}" style="min-width: 300px;">
-                    <div class="card text-white bg-info h-100">
-                        <div class="card-body p-3">
-                            <h5 class="card-title text-center">{{ bzd.name }}</h5>
-                            <p class="card-text text-center">قیمت کلی {{ bzd.price_million_toman[0] }} تا {{ bzd.price_million_toman[1] }} میلیون تومان</p>
-                            <table class="table table-sm table-bordered text-center text-white">
-                                <tbody class="text-wrap">
-                                    <tr>
-                                        <th colspan="2">توان کمپرسور</th>
-                                        <td colspan="2">{{ bzd.compressor_power_hp }} اسب بخار</td>
-                                    </tr>
+            <div class="col-12 col-lg-6 mb-4">
+                <div class="card text-white bg-info h-100">
+                    <div class="card-body p-3">
+                    <h5 class="card-title text-center">{{ bzd.name }}</h5>
+                    <p class="card-text text-center">قیمت کلی {{ bzd.price_million_toman[0] }} تا {{ bzd.price_million_toman[1] }} میلیون تومان</p>
 
-                                    <tr>
-                                        <th colspan="4">ابعاد پیشنهادی (متر)</th>
-                                    </tr>
+                    <table class="table table-sm table-bordered text-center text-white"">
+                        <tbody class="text-wrap">
+                            <tr>
+                            <th colspan="2">توان کمپرسور</th>
+                            <td colspan="2">{{ bzd.compressor_power_hp }} اسب بخار</td>
+                            </tr>
+                            <tr><th colspan="4">ابعاد پیشنهادی (متر)</th></tr>
+                            <tr><th colspan="2">طول</th><td colspan="2">{{ bzd.dimensions_m[0] }}</td></tr>
+                            <tr><th colspan="2">عرض</th><td colspan="2">{{ bzd.dimensions_m[1] }}</td></tr>
+                            <tr><th colspan="2">ارتفاع</th><td colspan="2">{{ bzd.dimensions_m[2] }}</td></tr>
+                            <tr><th colspan="4">هزینه‌های سردخانه (میلیون تومان)</th></tr>
+                            <tr><th colspan="2">تجهیزات</th><td colspan="2">{{ bzd.cost_breakdown.equipment[0] }} تا {{ bzd.cost_breakdown.equipment[1] }}</td></tr>
+                            <tr><th colspan="2">عایق‌کاری</th><td colspan="2">{{ bzd.cost_breakdown.insulation[0] }} تا {{ bzd.cost_breakdown.insulation[1] }}</td></tr>
+                            <tr><th colspan="2">اجرت نصب</th><td colspan="2">{{ bzd.cost_breakdown.installation[0] }} تا {{ bzd.cost_breakdown.installation[1] }}</td></tr>
+                            <tr class="text-center">
+                            <td>
+                                <a href="https://www.damoon-co.com/wp-content/uploads/fruits-coldroom-price-icon-7.svg" target="_blank" rel="noopener noreferrer">
+                                <img src="https://www.damoon-co.com/wp-content/uploads/fruits-coldroom-price-icon-7.svg" alt="میوه" class="img-fluid" style="max-height: 80px;">
+                                </a>
+                            </td>
+                            <td colspan="2">
+                                <a href="https://www.damoon-co.com/wp-content/uploads/dairy-coldroom-price-icon-7.svg" target="_blank" rel="noopener noreferrer">
+                                <img src="https://www.damoon-co.com/wp-content/uploads/dairy-coldroom-price-icon-7.svg" alt="لبنیات" class="img-fluid" style="max-height: 80px;">
+                                </a>
+                            </td>
+                            <td>
+                                <a href="https://www.damoon-co.com/wp-content/uploads/nuts-coldroom-price-icon-7.svg" target="_blank" rel="noopener noreferrer">
+                                <img src="https://www.damoon-co.com/wp-content/uploads/nuts-coldroom-price-icon-7.svg" alt="خشکبار" class="img-fluid" style="max-height: 80px;">
+                                </a>
+                            </td>
+                            </tr>
+                            <tr>
+                            <td>{{ bzd.storage_capacity.meat }} تن گوشت</td>
+                            <td colspan="2">{{ bzd.storage_capacity.chicken }} تن مرغ</td>
+                            <td>{{ bzd.storage_capacity.fish }} تن ماهی</td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                                    <tr>
-                                        <th colspan="2">طول</th>
-                                        <td colspan="2">{{ bzd.dimensions_m[0] }}</td>
-                                    </tr>
-
-                                    <tr>
-                                        <th colspan="2">عرض</th>
-                                        <td colspan="2">{{ bzd.dimensions_m[1] }}</td>
-                                    </tr>
-
-                                    <tr>
-                                        <th colspan="2">ارتفاع</th>
-                                        <td colspan="2">{{ bzd.dimensions_m[2] }}</td>
-                                    </tr>
-
-                                    <tr>
-                                        <th colspan="4">هزینه‌های سردخانه (میلیون تومان)</th>
-                                    </tr>
-
-                                    <tr>
-                                        <th colspan="2">تجهیزات</th>
-                                        <td colspan="2">{{ bzd.cost_breakdown.equipment[0] }} تا {{ bzd.cost_breakdown.equipment[1] }}</td>
-                                    </tr>
-
-                                    <tr>
-                                        <th colspan="2">عایق‌کاری</th>
-                                        <td colspan="2">{{ bzd.cost_breakdown.insulation[0] }} تا {{ bzd.cost_breakdown.insulation[1] }}</td>
-                                    </tr>
-
-                                    <tr>
-                                        <th colspan="2">اجرت نصب</th>
-                                        <td colspan="2">{{ bzd.cost_breakdown.installation[0] }} تا {{ bzd.cost_breakdown.installation[1] }}</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="align-middle">
-                                            <a href="https://www.damoon-co.com/wp-content/uploads/fruits-coldroom-price-icon-7.svg" target="_blank" rel="noopener noreferrer">
-                                            <img src="https://www.damoon-co.com/wp-content/uploads/fruits-coldroom-price-icon-7.svg" alt="میوه" class="img-fluid" style="max-height: 80px;">
-                                            </a>
-                                        </td>
-                                        <td class="align-middle" colspan="2">
-                                            <a href="https://www.damoon-co.com/wp-content/uploads/dairy-coldroom-price-icon-7.svg" target="_blank" rel="noopener noreferrer">
-                                            <img src="https://www.damoon-co.com/wp-content/uploads/dairy-coldroom-price-icon-7.svg" alt="لبنیات" class="img-fluid" style="max-height: 80px;">
-                                            </a>
-                                        </td>
-                                        <td class="align-middle">
-                                            <a href="https://www.damoon-co.com/wp-content/uploads/nuts-coldroom-price-icon-7.svg" target="_blank" rel="noopener noreferrer">
-                                            <img src="https://www.damoon-co.com/wp-content/uploads/nuts-coldroom-price-icon-7.svg" alt="خشکبار" class="img-fluid" style="max-height: 80px;">
-                                            </a>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>{{ bzd.storage_capacity.meat }} تن گوشت</td>
-                                        <td colspan="2">{{ bzd.storage_capacity.chicken }} تن مرغ</td>
-                                        <td>{{ bzd.storage_capacity.fish }} تن ماهی</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
                     </div>
                 </div>
+            </div>
             {% endfor %}
-        </div>
 
-    </div>
+        </div>
     {% else %}
 
       <!-- پیغام خالی بودن لیست -->
@@ -286,7 +233,28 @@
     </div>
     {% endif %}
 
+    <!-- popup برای تغییر متن شرح کالا -->
+    <div class="popup p-5 text-center justify-content-center" style="min-width: 50vh;" id="popupExplain">
+      <h2 class="text-dark text-center text-wrap vazir-font"> تغییر متن شرح کالا </h2>
+      <textarea class="form-control mb-2 mb-md-3 border border-dark border-2" rows="4" style="min-height: 50vh;" placeholder="توضیحات کالا"></textarea>
+      <div class="text-cenetr justify-content-center w-100">
+        <button class="btn btn-primary hover-bg-effect py-2 w-100" type="submit">ذخیره تغییرات</button>
+        <button class="btn btn-danger hover-bg-effect py-2 w-100 mt-1" id="close-explain">بستن</button>
+      </div>
+    </div>
+
+    <!-- popup برای تغییر متن توضیحات -->
+    <div class="popup p-5 text-center justify-content-center" style="min-width: 50vh;" id="popupDiscription">
+      <h2 class="text-dark text-center text-wrap vazir-font"> تغییر متن توضیحات </h2>
+      <textarea class="form-control mb-2 mb-md-3 border border-dark border-2" rows="4" style="min-height: 50vh;" placeholder="توضیحات پیش فاکتور"></textarea>
+      <div class="text-cenetr justify-content-center w-100">
+        <button class="btn btn-primary hover-bg-effect py-2 w-100" type="submit">ذخیره تغییرات</button>
+        <button class="btn btn-danger hover-bg-effect py-2 w-100 mt-1" id="close-discription">بستن</button>
+      </div>
+    </div>
+
 
     <script src="{{ url_for('static', filename='js/price-panel.js') }}"></script>
+    
   </body>
 </html>
