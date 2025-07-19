@@ -1,0 +1,9 @@
+.nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60px;
+    width: 100%;
+    white-space: normal;
+    text-align: center;
+}

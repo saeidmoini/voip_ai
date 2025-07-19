@@ -5,8 +5,8 @@
         "name": "سردخانه 7.5 تنی بالای صفر",
         "capacity_ton": 7.5,
         "price_million_toman": [
-          179,
-          209
+          229,
+          267
         ],
         "compressor_power_hp": 1.5,
         "dimensions_m": [
@@ -16,16 +16,16 @@
         ],
         "cost_breakdown": {
           "equipment": [
-            95,
-            110
+            121,
+            141
           ],
           "insulation": [
-            72,
-            85
+            92,
+            109
           ],
           "installation": [
-            12,
-            17
+            15,
+            21
           ]
         },
         "storage_capacity": {
@@ -38,8 +38,8 @@
         "name": "سردخانه 10 تنی بالای صفر",
         "capacity_ton": 10,
         "price_million_toman": [
-          205,
-          239
+          263,
+          305
         ],
         "compressor_power_hp": 2,
         "dimensions_m": [
@@ -49,16 +49,16 @@
         ],
         "cost_breakdown": {
           "equipment": [
-            106,
-            122
+            135,
+            156
           ],
           "insulation": [
-            87,
-            102
+            111,
+            130
           ],
           "installation": [
-            12,
-            14
+            15,
+            18
           ]
         },
         "storage_capacity": {
@@ -71,8 +71,8 @@
         "name": "سردخانه 15 تنی بالای صفر",
         "capacity_ton": 15,
         "price_million_toman": [
-          264,
-          307
+          338,
+          393
         ],
         "compressor_power_hp": 3,
         "dimensions_m": [
@@ -82,16 +82,16 @@
         ],
         "cost_breakdown": {
           "equipment": [
-            136,
-            158
+            174,
+            202
           ],
           "insulation": [
-            113,
-            131
+            145,
+            167
           ],
           "installation": [
-            15,
-            18
+            19,
+            23
           ]
         },
         "storage_capacity": {
@@ -104,8 +104,8 @@
         "name": "سردخانه 20 تنی بالای صفر",
         "capacity_ton": 20,
         "price_million_toman": [
-          306,
-          356
+          392,
+          455
         ],
         "compressor_power_hp": 4,
         "dimensions_m": [
@@ -115,16 +115,16 @@
         ],
         "cost_breakdown": {
           "equipment": [
-            144,
-            168
+            184,
+            216
           ],
           "insulation": [
-            143,
-            166
+            183,
+            212
           ],
           "installation": [
-            18,
-            22
+            23,
+            29
           ]
         },
         "storage_capacity": {
@@ -137,8 +137,8 @@
         "name": "سردخانه 50 تنی بالای صفر",
         "capacity_ton": 50,
         "price_million_toman": [
-          484,
-          562
+          619,
+          719
         ],
         "compressor_power_hp": 10,
         "dimensions_m": [
@@ -148,16 +148,16 @@
         ],
         "cost_breakdown": {
           "equipment": [
-            266,
-            309
+            340,
+            395
           ],
           "insulation": [
-            201,
-            223
+            257,
+            285
           ],
           "installation": [
-            26,
-            30
+            34,
+            38
           ]
         },
         "storage_capacity": {
@@ -170,8 +170,8 @@
         "name": "سردخانه 80 تنی بالای صفر",
         "capacity_ton": 80,
         "price_million_toman": [
-          630,
-          733
+          805,
+          938
         ],
         "compressor_power_hp": 15,
         "dimensions_m": [
@@ -181,16 +181,16 @@
         ],
         "cost_breakdown": {
           "equipment": [
-            322,
-            376
+            411,
+            482
           ],
           "insulation": [
-            270,
-            314
+            345,
+            402
           ],
           "installation": [
-            37,
-            42
+            47,
+            54
           ]
         },
         "storage_capacity": {
@@ -203,8 +203,8 @@
         "name": "سردخانه 100 تنی بالای صفر",
         "capacity_ton": 100,
         "price_million_toman": [
-          776,
-          900
+          993,
+          1152
         ],
         "compressor_power_hp": 20,
         "dimensions_m": [
@@ -214,16 +214,16 @@
         ],
         "cost_breakdown": {
           "equipment": [
-            388,
-            451
+            496,
+            576
           ],
           "insulation": [
-            344,
-            399
+            440,
+            510
           ],
           "installation": [
-            43,
-            50
+            55,
+            64
           ]
         },
         "storage_capacity": {
@@ -236,8 +236,8 @@
         "name": "سردخانه 200 تنی بالای صفر",
         "capacity_ton": 200,
         "price_million_toman": [
-          1300,
-          1511
+          1663,
+          1933
         ],
         "compressor_power_hp": 35,
         "dimensions_m": [
@@ -247,16 +247,16 @@
         ],
         "cost_breakdown": {
           "equipment": [
-            744,
-            864
+            952,
+            1106
           ],
           "insulation": [
-            494,
-            572
+            631,
+            732
           ],
           "installation": [
-            63,
-            74
+            80,
+            95
           ]
         },
         "storage_capacity": {
@@ -269,8 +269,8 @@
         "name": "سردخانه 250 تنی بالای صفر",
         "capacity_ton": 250,
         "price_million_toman": [
-          1482,
-          1724
+          1895,
+          2204
         ],
         "compressor_power_hp": 40,
         "dimensions_m": [
@@ -280,16 +280,16 @@
         ],
         "cost_breakdown": {
           "equipment": [
-            863,
-            1004
+            1104,
+            1285
           ],
           "insulation": [
-            550,
-            638
+            704,
+            816
           ],
           "installation": [
-            70,
-            82
+            90,
+            105
           ]
         },
         "storage_capacity": {
@@ -304,8 +304,8 @@
         "name": "سردخانه 3 تنی زیر صفر",
         "capacity_ton": 3,
         "price_million_toman": [
-          158,
-          184
+          202,
+          235
         ],
         "compressor_power_hp": 2,
         "dimensions_m": [
@@ -315,16 +315,16 @@
         ],
         "cost_breakdown": {
           "equipment": [
-            107,
-            125
+            136,
+            161
           ],
           "insulation": [
-            42,
-            50
+            54,
+            64
           ],
           "installation": [
-            10,
-            10
+            12,
+            12
           ]
         },
         "storage_capacity": {
@@ -337,8 +337,8 @@
         "name": "سردخانه 5 تنی زیر صفر",
         "capacity_ton": 5,
         "price_million_toman": [
-          186,
-          216
+          238,
+          276
         ],
         "compressor_power_hp": 3,
         "dimensions_m": [
@@ -348,16 +348,16 @@
         ],
         "cost_breakdown": {
           "equipment": [
-            118,
-            138
+            152,
+            176
           ],
           "insulation": [
-            54,
-            64
+            69,
+            81
           ],
           "installation": [
-            12,
-            14
+            15,
+            18
           ]
         },
         "storage_capacity": {
@@ -370,8 +370,8 @@
         "name": "سردخانه 10 تنی زیر صفر",
         "capacity_ton": 10,
         "price_million_toman": [
-          242,
-          282
+          310,
+          360
         ],
         "compressor_power_hp": 5.5,
         "dimensions_m": [
@@ -381,16 +381,16 @@
         ],
         "cost_breakdown": {
           "equipment": [
-            150,
-            174
+            191,
+            222
           ],
           "insulation": [
-            77,
-            90
+            99,
+            116
           ],
           "installation": [
-            14,
-            17
+            18,
+            21
           ]
         },
         "storage_capacity": {
@@ -403,8 +403,8 @@
         "name": "سردخانه 15 تنی زیر صفر",
         "capacity_ton": 15,
         "price_million_toman": [
-          269,
-          312
+          344,
+          399
         ],
         "compressor_power_hp": 7.5,
         "dimensions_m": [
@@ -414,16 +414,16 @@
         ],
         "cost_breakdown": {
           "equipment": [
-            177,
-            205
+            227,
+            263
           ],
           "insulation": [
-            76,
-            88
+            98,
+            112
           ],
           "installation": [
-            15,
-            18
+            19,
+            23
           ]
         },
         "storage_capacity": {
@@ -436,8 +436,8 @@
         "name": "سردخانه 25 تنی زیر صفر",
         "capacity_ton": 25,
         "price_million_toman": [
-          356,
-          414
+          455,
+          529
         ],
         "compressor_power_hp": 10,
         "dimensions_m": [
@@ -447,16 +447,16 @@
         ],
         "cost_breakdown": {
           "equipment": [
-            225,
-            261
+            287,
+            334
           ],
           "insulation": [
-            112,
-            130
+            144,
+            166
           ],
           "installation": [
-            20,
-            23
+            25,
+            30
           ]
         },
         "storage_capacity": {
@@ -469,8 +469,8 @@
         "name": "سردخانه 40 تنی زیر صفر",
         "capacity_ton": 40,
         "price_million_toman": [
-          427,
-          497
+          547,
+          636
         ],
         "compressor_power_hp": 15,
         "dimensions_m": [
@@ -480,16 +480,16 @@
         ],
         "cost_breakdown": {
           "equipment": [
-            276,
-            322
+            353,
+            411
           ],
           "insulation": [
-            128,
-            148
+            164,
+            189
           ],
           "installation": [
-            23,
-            28
+            30,
+            36
           ]
         },
         "storage_capacity": {
@@ -502,8 +502,8 @@
         "name": "سردخانه 50 تنی زیر صفر",
         "capacity_ton": 50,
         "price_million_toman": [
-          533,
-          619
+          682,
+          792
         ],
         "compressor_power_hp": 20,
         "dimensions_m": [
@@ -513,16 +513,16 @@
         ],
         "cost_breakdown": {
           "equipment": [
-            327,
-            381
+            418,
+            487
           ],
           "insulation": [
-            193,
-            223
+            246,
+            285
           ],
           "installation": [
-            29,
-            34
+            37,
+            44
           ]
         },
         "storage_capacity": {
@@ -535,8 +535,8 @@
         "name": "سردخانه 100 تنی زیر صفر",
         "capacity_ton": 100,
         "price_million_toman": [
-          864,
-          1007
+          1106,
+          1288
         ],
         "compressor_power_hp": 35,
         "dimensions_m": [
@@ -546,16 +546,16 @@
         ],
         "cost_breakdown": {
           "equipment": [
-            555,
-            646
+            711,
+            826
           ],
           "insulation": [
-            266,
-            309
+            340,
+            395
           ],
           "installation": [
-            44,
-            52
+            56,
+            66
           ]
         },
         "storage_capacity": {
@@ -568,8 +568,8 @@
         "name": "سردخانه 120 تنی زیر صفر",
         "capacity_ton": 120,
         "price_million_toman": [
-          990,
-          1149
+          1267,
+          1470
         ],
         "compressor_power_hp": 40,
         "dimensions_m": [
@@ -579,16 +579,16 @@
         ],
         "cost_breakdown": {
           "equipment": [
-            637,
-            741
+            815,
+            948
           ],
           "insulation": [
-            304,
-            353
+            389,
+            451
           ],
           "installation": [
-            48,
-            55
+            62,
+            70
           ]
         },
         "storage_capacity": {

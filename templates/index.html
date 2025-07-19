@@ -16,6 +16,10 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/toastify.min.css') }}"
     />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/navStyle.css') }}"
+    />
     <script src="{{ url_for('static', filename='js/toastify-js.js') }}"></script>
     <script src="{{ url_for('static', filename='js/jquery.slim.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
@@ -35,14 +39,14 @@
         <a class="nav-link text-dark h2" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
              ☰   
         </a>
-        <div class="dropdown-menu p-2" style="width: 20vw; right: 0%; height: auto;" aria-labelledby="navbarDropdownMenuLink" dir="rtl">
+        <div class="dropdown-menu p-2" style="width: 50vw; right: 0%; height: auto; max-width: 300px;" aria-labelledby="navbarDropdownMenuLink" dir="rtl">
             {% if username%}
                 <p class="vazir-font text-dark text-wrap text-right h4" href="#">نام کاربری : {{ username }}</p>
             {% endif %}
-            <a class="btn btn-dark text-wrap mt-1 w-100" href="/logout">خروج از حساب</a>
-            <a class="btn btn-dark text-wrap mt-1 w-100" href="/price-panel">پنل قیمت ها</a>
-            <button class="btn btn-dark text-wrap mt-1 w-100" id="open-discription">تغییر متن توضیحات در پیش فاکتور</button>
-            <button class="btn btn-dark text-wrap mt-1 w-100 mb-2dark" id="open-explain">تغییر متن شرح کالا در پیش فاکتور</button>
+            <a class="btn btn-dark text-wrap mt-1 w-100 nav-btn" href="/logout">خروج از حساب</a>
+            <a class="btn btn-dark text-wrap mt-1 w-100 nav-btn" href="/price-panel">پنل قیمت ها</a>
+            <button class="btn btn-dark text-wrap mt-1 w-100 nav-btn" id="open-discription">تغییر متن توضیحات در پیش فاکتور</button>
+            <button class="btn btn-dark text-wrap mt-1 w-100 mb-2 nav-btn" id="open-explain">تغییر متن شرح کالا در پیش فاکتور</button>
         </div>
       </div>
     </nav>
