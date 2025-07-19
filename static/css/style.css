@@ -76,3 +76,17 @@ body {
   background-color: #f0f0f0;
   border-radius: 10px;
 }
+
+
+.input-group {
+  flex-wrap: nowrap;
+}
+
+.input-group .input-group-text {
+  white-space: nowrap;
+}
+
+#increase_input {
+  min-width: 0;
+  flex: 1 1 auto;
+}

@@ -201,13 +201,21 @@
     <!-- popup برای تغییر قیمت ها -->
      <div class="popup-overlay" id="popup-overlay"></div>
 
-    <div class="popup p-5 text-center justify-content-center" id="popup">
+    <div class="popup p-3 text-center justify-content-center" id="popup">
         <h5 class="text-dark mt-2 mx-auto"> تغییر قیمت ها</h5>
-        <div class="input-group mb-2" dir="ltr">
-            <input type="number" id="increase_input" class="form-control text-wrap" dir="rtl" style="min-width: 250px;" placeholder="درصد تغییر قیمت ها را وارد کنید ..."  aria-describedby="basic-addon1">
-            <div class="input-group-append">
-                <span class="input-group-text" id="basic-addon1">%</span>
-            </div>
+        <div class="input-group mb-2 d-flex" dir="ltr" style="flex-wrap: nowrap;">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="toggle-sign" onclick="toggleSign()">+</span>
+          </div>
+          <input type="number" id="increase_input"
+                class="form-control text-wrap"
+                dir="rtl"
+                style="flex: 1 1 auto; min-width: 0;"
+                placeholder="درصد تغییر قیمت ها را وارد کنید ..."
+                aria-describedby="basic-addon1">
+          <div class="input-group-append">
+            <span class="input-group-text" id="basic-addon2">%</span>
+          </div>
         </div>
         <button id="increase_btn" class="btn btn-success w-100 mb-1"> تایید </button>
         <button class="btn btn-danger w-100 mt-1 mb-1" id="close-popup-btn"> بستن </button>

@@ -7,10 +7,14 @@ const openExplain = document.getElementById("open-explain");
 const openDiscription = document.getElementById("open-discription");
 
 document.getElementById('increase_btn').addEventListener('click', () => {
-    const value = document.getElementById('increase_input').value.trim();
+    const pre_value = document.getElementById("toggle-sign").textContent;
+    let value = document.getElementById('increase_input').value.trim();
+    value = pre_value === "-" ? pre_value + value : value;
+    
+
     if (!value || isNaN(value)) {
         Toastify({
-            text: "لطفاً درصد تغییر را وارد کنید.",
+            text: "لطفاً درصد تغییر را درست وارد کنید.",
             duration: 2000,
             gravity: "top",
             position: "right",
@@ -187,3 +191,10 @@ document.getElementById("close-discription").addEventListener("click", function(
   popupDiscription.style.display = "none";
   overlay.style.display = "none";
 });
+
+// دکمه مثبت و منفی برای درصد تغییر قیمت ها
+
+function toggleSign() {
+  const pre_value = document.getElementById("toggle-sign");
+  pre_value.textContent = pre_value.textContent === "+" ? "-" : "+";
+}
