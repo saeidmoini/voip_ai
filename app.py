@@ -59,7 +59,7 @@ def price_panel_page():
                 price_back_data = json.load(f)
 
             chn_price = int( price_data["cold_storages"]["above_zero"][0]["cost_breakdown"]["equipment"][0] / price_back_data["cold_storages"]["above_zero"][0]["cost_breakdown"]["equipment"][0] * 100 ) - 100
-            chn_price = f"قیمت ها {abs(chn_price)}% {"افزایش" if chn_price > 0 else "کاهش"} یافته است." if chn_price != 0 else "قیمت ها تغییر نکرده است."
+            chn_price = f"قیمت ها {abs(chn_price)}% {'افزایش' if chn_price > 0 else 'کاهش'} یافته است." if chn_price != 0 else "قیمت ها تغییر نکرده است."
         except:
             chn_price = "خطا در محاسبه تغییرات قیمت ها"
 

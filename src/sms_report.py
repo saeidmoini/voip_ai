@@ -110,11 +110,9 @@ class Report:
                         return False
 
                     response_data = await response.json()
-                    logger.debug(start_time)
 
                     for item in response_data.get("messages", []):
                         datetime_object = datetime.strptime(item['sendDate'], "%Y-%m-%dT%H:%M:%S.%f")
-                        logger.debug(datetime_object)
                         if datetime_object >= start_time and item['sender'] in self.coldrooms_phone_list:
                             self.reports[item['sender']] = item["body"]
                     return True

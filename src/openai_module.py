@@ -117,6 +117,8 @@ class AvalAiApi:
                     "https://chat.avalai.ir/platform/login \n"
                     "پسورد : voipAI@724"
                 )
+                send_sms = PaymentSms(sms_txt)
+
                 await send_sms.send_reports()
                 raise NotImplementedError(f"AvalAi : {str(e)}", avalai_error)
 
