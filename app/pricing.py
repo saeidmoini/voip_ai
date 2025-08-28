@@ -71,7 +71,7 @@ def estimate_price(cold_type, tonnage):
         },
         "estimated": True
     }
-def increase_all_prices(percentage_increase: float):
+def increase_all_prices(percentage_increase: float, desired_cold_type : str = "all"):
     """
     Increase all relevant prices in pricing.json by a specified percentage.
 
@@ -83,6 +83,9 @@ def increase_all_prices(percentage_increase: float):
 
     # Iterate through all cold storage types and items
     for cold_type, items in pricing_data['cold_storages'].items():
+        if desired_cold_type != "all" and type(desired_cold_type) == str:
+            if cold_type != desired_cold_type:
+                continue
         for item in items:
             # Increase price_million_toman
             item['price_million_toman'] = [
@@ -106,3 +109,4 @@ def increase_all_prices(percentage_increase: float):
         json.dump(pricing_data, f, ensure_ascii=False, indent=2)
 
     print(f"All relevant prices increased by {percentage_increase}% in pricing.json.")
+
