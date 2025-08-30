@@ -4,9 +4,11 @@ __pycache__/
 *$py.class
 config.py
 invoices.json
+Pricing.json
 *.log
 audio/
 .idea/*
+
 # C extensions
 *.so
 
