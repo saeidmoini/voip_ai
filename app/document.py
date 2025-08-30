@@ -111,7 +111,8 @@ async def generate_invoice(
         if storage_type_both == 'both':
             price_number = price_number * 1.25
             
-        price_formatted = "{:,}".format(price_number)
+        price_formatted = "{:,}".format(int(price_number))
+
 
         tonnage_clean = int(tonnage) if tonnage == int(tonnage) else tonnage
         formatted_dims = [f"{d:.2f}".rstrip("0").rstrip(".") for d in details['dimensions_m']]
