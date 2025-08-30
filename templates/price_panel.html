@@ -203,6 +203,17 @@
 
     <div class="popup p-3 text-center justify-content-center" id="popup">
         <h5 class="text-dark mt-2 mx-auto"> تغییر قیمت ها</h5>
+
+        <div class="mb-3 text-right" dir="rtl">
+          <label for="temperature-condition" class="form-label">اساس دمای سردخانه</label>
+          <select class="form-control" id="temperature-condition" dir="rtl">
+              <option value="all">همه</option>
+              <option value="below_zero">دما زیر صفر</option>
+              <option value="above_zero">دما بالای صفر</option>
+          </select>
+        </div>
+
+
         <div class="input-group mb-2 d-flex" dir="ltr" style="flex-wrap: nowrap;">
           <div class="input-group-prepend">
             <span class="input-group-text" id="toggle-sign" onclick="toggleSign()">+</span>

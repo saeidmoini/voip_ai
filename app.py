@@ -85,19 +85,25 @@ def increase_price_api():
 
     try:
         increase_value = float(request.args.get('increase_value'))
+        desired_cold_type = request.args.get('desired_cold_type')
+        desired_cold_type = str(desired_cold_type) if desired_cold_type else None
     except Exception as e:
         logger.error(f"Error in change prices : {e}")
-        return Response("Error in change prices", status=500)
+        return Response("Error in change prices", status=404)
 
     try:
-        if increase_value :
+        if increase_value and desired_cold_type == None:
             increase_all_prices(percentage_increase=increase_value)
+            return Response("prices increased successful", status=200)
+        elif increase_value and desired_cold_type:
+            increase_all_prices(percentage_increase=increase_value, desired_cold_type=desired_cold_type)
             return Response("prices increased successful", status=200)
         else:
             return Response("increase_value requered to use this api", status=400)
     except Exception as e:
         logger.error(f"Error in change prices : {e}")
         return Response("Error in change prices", status=500)
+
 
 @app.route('/api/get-prd-explain-text', methods=['GET'])
 def get_prd_explain_text():
